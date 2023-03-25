@@ -1,0 +1,119 @@
+.container{
+    background-color: #E8EAE6;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join__wrapper{
+    background-color: #F5F5F5;
+    padding: 32px;
+    border-radius: 20px;
+    border: 2px solid #CFDAC8;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+.join__title{
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    margin-bottom: 24px;
+}
+
+.input__title{
+    display: block;
+    font-size: 1rem;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.input{
+    padding: 16px;
+    border-radius: 10px;
+    border: 0px;
+    width: 320px;
+    max-width: 60vw;
+}
+
+.input:focus{
+    border: 0px;
+    outline: 0px;
+}
+
+.button__back{
+    display: block;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    opacity: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__submit{
+    display: block;
+    background-color: #7C9473;
+    color: #F8F9FA;
+    padding: 12px 24px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 0px;
+    width: 320px;
+    max-width: 60vw;
+
+    position: relative;
+    
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.button__cancel{
+    display: block;
+    background-color: #A5A5A5;
+    color: #F8F9FA;
+    padding: 12px 24px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 0px;
+    width: 320px;
+    max-width: 60vw;
+
+    position: relative;
+    
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.error_message{
+    font-size: 0.8rem;
+    height: 16px;
+    margin-top: 2px;
+
+    color: #C90A1A;
+}
+
+@media screen and (min-width: 1024px){
+    /*hover*/
+    button:hover .button__back{
+        opacity: 1;
+    }
+}
