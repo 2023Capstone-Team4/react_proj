@@ -13,7 +13,7 @@ function LoginPage() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "loginId":data.email,
+                "loginId": data.memberId,
                 "password":data.password
             }),
         }).then(res => res.json());
@@ -23,13 +23,13 @@ function LoginPage() {
             <h1 className={styles.login__title}>로그인</h1>
             <form onSubmit={handleSubmit(onValid)}>
                 <label className={styles.input__title}>
-                    이메일
+                아이디
                 </label>
                 <input
-                    {...register("email", { required: "이메일 입력은 필수입니다." })}
-                    className={styles.input} type="email" />
+                    {...register("memberId", { required: "아이디 입력은 필수입니다." })}
+                    className={styles.input} type="text" />
                 <div className={styles.error_message}>
-                    {errors?.email?.message}
+                    {errors?.memberId?.message}
                 </div>
                 <label className={styles.input__title}>
                     비밀번호
