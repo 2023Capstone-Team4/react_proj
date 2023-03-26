@@ -15,12 +15,22 @@ function JoinPage() {
             console.log(data);
             console.log(errors);
 
-            fetch('http://localhost:8080/join', {
+            fetch('http://localhost:8080/members/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify({
+                    "id":"1",
+                    "memberId":"2",
+                    "password":"1234",
+                    "name":"sy",
+                    "age":"20",
+                    "sex": "15",
+                    "birth":"null",
+                    "interst": "n",
+                    "email":"meo",
+                }),
             }).then(res => res.json());
         }
     }
