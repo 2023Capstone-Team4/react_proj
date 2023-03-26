@@ -7,6 +7,16 @@ function LoginPage() {
     const onValid = (data) => {
         console.log(data);
         console.log(errors);
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "loginId":data.email,
+                "password":data.password
+            }),
+        }).then(res => res.json());
     }
     return <div className={styles.container}>
         <div className={styles.login__wrapper}>
