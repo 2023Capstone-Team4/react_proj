@@ -11,7 +11,7 @@ function JoinPage() {
                 { message: "비밀번호가 일치하지 않습니다." }, //errors에 넣을 에러 메시지
                 { shouldFocus: true } //에러 발생시 해당 구간에 포커스하게 하는 설정
             );
-        } else {
+        }  else {
             console.log(data);
             console.log(errors);
 
@@ -21,15 +21,15 @@ function JoinPage() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "id":"1",
-                    "memberId":"2",
-                    "password":"1234",
-                    "name":"sy",
-                    "age":"20",
-                    "sex": "15",
-                    "birth":"null",
-                    "interst": "n",
-                    "email":"meo",
+                    "id":1,
+                    "memberId":"newUser",
+                    "password":"a1234",
+                    "name":"userkim",
+                    "age":20,
+                    "sex": 1,
+                    "birth":new Date(),
+                    "interst": "LIFE",
+                    "email":"meo@naver.com",
                 }),
             }).then(res => res.json());
         }
@@ -45,13 +45,13 @@ function JoinPage() {
             <h1 className={styles.join__title}>회원가입</h1>
             <form onSubmit={handleSubmit(onValid)}>
                 <label className={styles.input__title}>
-                    이메일
+                    아이디
                 </label>
                 <input
-                    {...register("email", { required: "이메일 입력은 필수입니다." })}
-                    className={styles.input} type="email" />
+                    {...register("memberId", { required: "아이디 입력은 필수입니다." })}
+                    className={styles.input} type="text" />
                 <div className={styles.error_message}>
-                    {errors?.email?.message}
+                    {errors?.memberId?.message}
                 </div>
                 <label className={styles.input__title}>
                     비밀번호
