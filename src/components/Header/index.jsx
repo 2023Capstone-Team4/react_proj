@@ -1,12 +1,13 @@
 import { SlMenu } from "react-icons/sl";
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from './Header.module.css';
 
 function Header() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [avatarOpen, setAvatarOpen] = useState(false);
     const [user, setUser] = useState("익명");
+    const navigate = useNavigate();
     const onMobileOpen = () => {
         setMobileOpen(cur => !cur);
     }
@@ -14,7 +15,24 @@ function Header() {
         setAvatarOpen(cur => !cur);
     }
 
-
+    //logout func
+    const onLogout = () => {
+        fetch('http://localhost:8080/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => {
+            console.log(res);
+            if(res.ok){
+                alert("로그아웃 되었습니다.");
+                navigate(`${process.env.PUBLIC_URL}/login`);
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+    
     return <div>
         {mobileOpen ? <div className={styles.mobile}>
             <div className={styles.wrapper}>
@@ -44,7 +62,7 @@ function Header() {
                             <div className={styles.back} onClick={onAvatarOpen} />
                             <ul className={styles.subbar}>
                                 <li><a href="">마이페이지</a></li>
-                                <li><a href="">로그아웃</a></li>
+                                <Link onClick={onLogout}><li>로그아웃</li></Link>
                             </ul>
                         </div> : null}
                     </li>
@@ -64,7 +82,7 @@ function Header() {
                             <div className={styles.back} onClick={onAvatarOpen} />
                             <ul className={styles.subbar}>
                                 <li><a href="">마이페이지</a></li>
-                                <li><a href="">로그아웃</a></li>
+                                <Link onClick={onLogout}><li>로그아웃</li></Link>
                             </ul>
                         </div> : null}
                     </li>
