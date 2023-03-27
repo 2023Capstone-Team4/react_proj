@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 
 function LoginPage() {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onValid = (data) => {
         console.log(data);
@@ -16,7 +17,14 @@ function LoginPage() {
                 "loginId": data.memberId,
                 "password":data.password
             }),
-        }).then(res => res.json());
+        }).then(res => {
+            console.log(res);
+            if(res.ok){
+                alert("로그인이 완료되었습니다.");
+                navigate(`${process.env.PUBLIC_URL}/`);
+            }
+        })
+        .catch(error=>console.log(error));
     }
     return <div className={styles.container}>
         <div className={styles.login__wrapper}>
