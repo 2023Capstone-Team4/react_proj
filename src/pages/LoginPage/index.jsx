@@ -10,6 +10,7 @@ function LoginPage() {
         console.log(errors);
         fetch('http://localhost:8080/login', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
