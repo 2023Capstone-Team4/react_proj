@@ -124,7 +124,7 @@ function JoinPage() {
                         <select
                             {...register("year", { required: true })}
                             className={styles.input__birth}>
-                            {[...Array(12).keys()].map((index)=>
+                            {[...Array(50).keys()].map((index)=>
                                 <option key={index}>{index+1974}</option>
                             )}
                         </select>
