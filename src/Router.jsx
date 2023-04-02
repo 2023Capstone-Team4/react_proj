@@ -7,6 +7,8 @@ import StudyFormPage from "./pages/StudyFormPage";
 import StudyPage from "./pages/StudyPage";
 import StudyRankingPage from "./pages/StudyRankingPage";
 import StudyMemberPage from "./pages/StudyMemeberPage";
+import StudyBoardPage from "./pages/StudyBoardPage";
+import StudyBoardFormPage from "./pages/StudyBoardFormPage";
 
 const router = createBrowserRouter([
     {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
                     {
                         path: "studies/:sutdyId/members",
                         element: <StudyMemberPage />
+                    },
+                    {
+                        path: "studies/:sutdyId/board",
+                        element: <StudyBoardPage />
+                    },
+                    {
+                        path: "studies/:sutdyId/board/add",
+                        element: <StudyBoardFormPage />
                     }
                 ]
             },
