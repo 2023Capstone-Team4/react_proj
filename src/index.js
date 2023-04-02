@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import router from "./Router";
 import { RouterProvider } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import { RecoilRoot } from 'recoil';
 
 const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -61,7 +62,9 @@ const GlobalStyle = createGlobalStyle`
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <GlobalStyle />
+    <RecoilRoot>
+      <RouterProvider router={router} />
+      <GlobalStyle />
+    </RecoilRoot>
   </React.StrictMode>
 );

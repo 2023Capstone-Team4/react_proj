@@ -3,7 +3,8 @@ import App from "./App";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import StudiesPage from "./pages/StudiesPage";
-import StudyForm from "./pages/StudyFormPage";
+import StudyFormPage from "./pages/StudyFormPage";
+import StudyPage from "./pages/StudyPage";
 
 const router = createBrowserRouter([
     {
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "studies/add",
-                        element: <StudyForm />
+                        element: <StudyFormPage />
+                    },
+                    {
+                        path: "studies/:studyId",
+                        element: <StudyPage />
                     }
                 ]
             },

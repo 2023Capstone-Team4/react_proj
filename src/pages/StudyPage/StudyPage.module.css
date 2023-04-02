@@ -1,0 +1,277 @@
+.container{
+    background-color: #F8F9FA;
+
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+/* Banner */
+.banner__wrapper{
+    padding: 32px 48px;
+    width: 100%;
+}
+
+.banner__title{
+    font-size: 2rem;
+    font-weight: 600;
+
+    margin-top: 24px;
+    margin-bottom: 32px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.banner__title__category{
+    background-color: rgba(84, 94, 146, 0.8);
+    color:#F8F9FA;
+    border-radius: 20px;
+    padding: 4px 8px;
+    margin-left: 16px;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.banner__title__icon{
+    color: #A5A5A5;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0px 8px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.banner__btn__back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4px 0px;
+    background-color: inherit;
+    border: 0px;
+
+    color: #959595;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.subbar{
+    position: absolute;
+    top: 16px;
+    right: 0px;
+
+    z-index: 3;
+
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    
+    padding: 8px;
+}
+
+.subbar li{
+    white-space: nowrap;
+    padding: 12px 24px;
+
+    color: black;
+    font-weight: 400;
+}
+
+.back{
+    background-color: red;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    opacity: 0;
+}
+
+.banner__btn{
+    background-color: #7C9473;
+    border: 0px;
+    border-radius: 10px;
+    color: #F8F9FA;
+    padding: 12px 24px;
+
+    position: relative;
+
+    font-weight: 600;
+    font-size: 1rem;
+
+    cursor: pointer;
+}
+
+.btn__back{
+    display: block;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    opacity: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Banner */
+/* Study Content*/
+.wrapper{
+    padding: 32px 48px;
+    padding-top: 16px;
+
+    width: 100%;
+}
+
+.items__wrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+}
+
+.items__wrapper__row{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+}
+
+.items__wrapper__col{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+}
+
+.item{
+    border: 2px solid #D5D5D5;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+
+    padding: 32px;
+}
+
+.item__title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    margin-bottom: 24px;
+}
+
+.ranking__wrapper{
+
+}
+
+.ranking__item:first-child{
+    border-top: 1px solid #A5A5A5;
+}
+
+.ranking__item{
+    background-color: #F8F9FA;
+    padding: 16px 4px;
+    border-bottom: 1px solid #A5A5A5;
+
+    font-size: 1rem;
+}
+
+.member__wrapper{
+
+}
+
+.member__item:first-child{
+    border-top: 1px solid #A5A5A5;
+}
+
+.member__item{
+    background-color: #F8F9FA;
+    padding: 16px 4px;
+    border-bottom: 1px solid #A5A5A5;
+
+    font-size: 1rem;
+}
+
+.board__wrapper{
+
+}
+
+.board__item:first-child{
+    border-top: 1px solid #A5A5A5;
+}
+
+.board__item{
+    background-color: #F8F9FA;
+    padding: 16px 4px;
+    border-bottom: 1px solid #A5A5A5;
+
+    font-size: 1rem;
+}
+/* Study Content*/
+@media screen and (max-width: 767px){
+    /*Mobile*/
+    .item{
+        padding: 16px;
+    }
+    .banner__wrapper{
+        padding: 32px 16px;
+    }
+    .wrapper{
+        padding: 32px 16px;
+    }
+}
+
+
+@media screen and (min-width: 1024px){
+    /*Web & hover*/
+    .items__wrapper{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-column-gap: 16px;
+        grid-row-gap: 16px;
+    }
+
+    .items__wrapper__row{
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+        grid-column-gap: 16px;
+        grid-row-gap: 16px;
+    }
+
+    .items__wrapper__col{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-column-gap: 16px;
+        grid-row-gap: 16px;
+    }
+
+    .banner__btn:hover .btn__back{
+        opacity: 1;
+    }
+
+    .subbar li:hover{
+        color: #7C9473;
+    }
+}
+
