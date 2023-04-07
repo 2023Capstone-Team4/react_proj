@@ -61,7 +61,7 @@ function Header() {
                         {avatarOpen ? <div>                                                 
                             <div className={styles.back} onClick={onAvatarOpen} />
                             <ul className={styles.subbar}>
-                                <li><a href="">마이페이지</a></li>
+                                <Link to={`${process.env.PUBLIC_URL}/mypage`}><li>마이페이지</li></Link>
                                 <Link onClick={onLogout}><li>로그아웃</li></Link>
                             </ul>
                         </div> : null}
@@ -81,7 +81,7 @@ function Header() {
                         {avatarOpen ? <div>                                                 
                             <div className={styles.back} onClick={onAvatarOpen} />
                             <ul className={styles.subbar}>
-                                <li><a href="">마이페이지</a></li>
+                                <Link to={`${process.env.PUBLIC_URL}/mypage`}><li>마이페이지</li></Link>
                                 <Link onClick={onLogout}><li>로그아웃</li></Link>
                             </ul>
                         </div> : null}
