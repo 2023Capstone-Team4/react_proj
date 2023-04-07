@@ -1,0 +1,94 @@
+.calender__wrapper {
+    background-color: #F8F9FA;
+    border: 0px;
+    outline: 1.5px solid #F3969A;
+    padding: 1px;
+    font-size: 1rem;
+}
+
+.month__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 48px;
+}
+
+.month__wrapper h4 {
+    font-weight: 500;
+}
+
+.month__wrapper button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0px 24px;
+    padding: 8px;
+
+    background-color: inherit;
+    border: 0px;
+
+    cursor: pointer;
+}
+
+.day__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.day__wrapper div {
+    width: calc(100%);
+    padding: 4px;
+    font-size: 18px;
+    text-align: center;
+    outline: 1px solid #343A40;
+}
+
+.week__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date{
+    border: 0px;
+    outline: 1px solid #343A40;
+    width: calc(100% / 7);
+    padding: 8px;
+
+    min-height: 120px;
+
+    cursor: pointer;
+}
+
+.date__selected{
+    border: 0px;
+    outline: 1px solid #545e92;
+    background-color: rgba(84, 94, 146, 0.2);
+    width: calc(100% / 7);
+    padding: 8px;
+
+    min-height: 120px;
+
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px){
+    /*Mobile*/
+    .date{
+        min-height: 120px;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+
+    /*hover*/
+    .month__wrapper button:hover {
+        background-color: rgba(120, 194, 173, 0.3);
+        border-radius: 100px;
+    }
+
+}

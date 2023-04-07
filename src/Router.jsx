@@ -3,6 +3,12 @@ import App from "./App";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import StudiesPage from "./pages/StudiesPage";
+import StudyFormPage from "./pages/StudyFormPage";
+import StudyPage from "./pages/StudyPage";
+import StudyRankingPage from "./pages/StudyRankingPage";
+import StudyMemberPage from "./pages/StudyMemeberPage";
+import StudyBoardPage from "./pages/StudyBoardPage";
+import StudyBoardFormPage from "./pages/StudyBoardFormPage";
 
 const router = createBrowserRouter([
     {
@@ -23,7 +29,40 @@ const router = createBrowserRouter([
             },
             {
                 path: "community",
-                element: <StudiesPage />
+                children:[
+                    {
+                        path: "",
+                        element: <StudiesPage />,
+                    },
+                    {
+                        path: "studies",
+                        element: <StudiesPage />
+                    },
+                    {
+                        path: "studies/add",
+                        element: <StudyFormPage />
+                    },
+                    {
+                        path: "studies/:studyId",
+                        element: <StudyPage />
+                    },
+                    {
+                        path: "studies/:sutdyId/ranking",
+                        element: <StudyRankingPage />
+                    },
+                    {
+                        path: "studies/:sutdyId/members",
+                        element: <StudyMemberPage />
+                    },
+                    {
+                        path: "studies/:sutdyId/board",
+                        element: <StudyBoardPage />
+                    },
+                    {
+                        path: "studies/:sutdyId/board/add",
+                        element: <StudyBoardFormPage />
+                    }
+                ]
             },
         ]
     }

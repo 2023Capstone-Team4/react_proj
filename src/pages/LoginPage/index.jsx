@@ -10,6 +10,7 @@ function LoginPage() {
         console.log(errors);
         fetch('http://localhost:8080/login', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -22,6 +23,8 @@ function LoginPage() {
             if(res.ok){
                 alert("로그인이 완료되었습니다.");
                 navigate(`${process.env.PUBLIC_URL}/`);
+            }else{
+                alert("아이디, 비밀번호가 일치하지 않습니다.");
             }
         })
         .catch(error=>console.log(error));
