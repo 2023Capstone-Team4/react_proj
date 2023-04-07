@@ -12,20 +12,27 @@ function MyStudyPage(){
                         <p>학습 시작 ></p>
                     </Link>
                 </div>
+                <div>
+                    <button className={styles.wrapper_button}>학습 레포트</button>
+                </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 학습 목록</p>
                     <div className={styles.item_style1}>
                         <p className={styles.item_title}>개인 학습</p>
                         <p>오늘 학습 시간</p>
                         <p>0시간 24분</p>
-                        <button className={styles.item_button} >학습 시작</button>
+                        <div>
+                            <button className={styles.item_button} >학습 시작</button>
+                        </div>
                         {/*<Link to={`${process.env.PUBLIC_URL}/start_personal`} className={styles.item_button}>학습 시작</Link>*/}
                     </div>
                     <div className={styles.item_style1}>
                         <p className={styles.item_title}>스터디</p>
                         <p>오늘 학습 시간</p>
                         <p>0시간 12분</p>
-                        <button className={styles.item_button}>학습 시작</button>
+                        <div>
+                            <button className={styles.item_button} >학습 시작</button>
+                        </div>
                     </div>
                 </div>
             </div>

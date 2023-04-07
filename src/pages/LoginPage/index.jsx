@@ -16,7 +16,7 @@ function LoginPage() {
             },
             body: JSON.stringify({
                 "loginId": data.memberId,
-                "password":data.password
+                "password":data.password,
             }),
         }).then(res => {
             console.log(res);

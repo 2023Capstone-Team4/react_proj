@@ -13,36 +13,34 @@ function HomePage(){
                 </div>
                 <div className={styles.items}>
                     <div className={styles.item_style1}>
-                        <table className={styles.item_table}>
-                            <th>나의 기록</th>
-                            <tr><td> </td></tr>
-                            <tr>
-                                <td>오늘 학습 시간</td>
-                                <td>오늘 자세 교정 횟수</td>
-                            </tr>
-                            <tr>
-                                <td>0시간 32분</td>
-                                <td>4회</td>
-                            </tr>
-                        </table>
+                        <div className={styles.item_mylog}>
+                            <div className={styles.item_mylog_title}>나의 기록</div>
+                            <div className={styles.item_mylog_cnt}>
+                                <div className={styles.item_mylog_content}>오늘 학습 시간</div>
+                                <div className={styles.item_mylog_content}>0시간 32분</div>
+                            </div>
+                            <div className={styles.item_mylog_cnt}>
+                                <div className={styles.item_mylog_content}>오늘 자세교정 횟수</div>
+                                <div className={styles.item_mylog_content}>4회</div>
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.item_style1}>
-                        <table className={styles.item_table}>
-                            <th>최근 학습 기록</th>
-                            <tr><td> </td></tr>
-                            <tr>
-                                <td>학습 고유 id</td>
-                                <td>2023년 3월 28일</td>
-                                <td>0시간 32분</td>
-                                <td>4회</td>
-                            </tr>
-                            <tr>
-                                <td>학습 고유 id</td>
-                                <td>2023년 3월 28일</td>
-                                <td>0시간 32분</td>
-                                <td>4회</td>
-                            </tr>
-                        </table>
+                        <div className={styles.item_mylog}>
+                            <div className={styles.item_studylog_title}>최근 학습기록</div>
+                            <div className={styles.item_studylog_cnt}>
+                                <div className={styles.item_studylog_content}>학습 고유 id</div>
+                                <div className={styles.item_studylog_content}>0시간 32분</div>
+                                <div className={styles.item_studylog_content}>2023년 4월 7일</div>
+                                <div className={styles.item_studylog_content}>4회</div>
+                            </div>
+                            <div className={styles.item_studylog_cnt}>
+                                <div className={styles.item_studylog_content}>학습 고유 id</div>
+                                <div className={styles.item_studylog_content}>0시간 32분</div>
+                                <div className={styles.item_studylog_content}>2023년 4월 7일</div>
+                                <div className={styles.item_studylog_content}>4회</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

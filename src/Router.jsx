@@ -3,12 +3,17 @@ import App from "./App";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import StudiesPage from "./pages/StudiesPage";
+//<<<<<<< Updated upstream
 import StudyFormPage from "./pages/StudyFormPage";
 import StudyPage from "./pages/StudyPage";
 import StudyRankingPage from "./pages/StudyRankingPage";
 import StudyMemberPage from "./pages/StudyMemeberPage";
 import StudyBoardPage from "./pages/StudyBoardPage";
 import StudyBoardFormPage from "./pages/StudyBoardFormPage";
+//=======
+import HomePage from "./pages/HomePage";
+import MyStudyPage from "./pages/MyStudyPage";
+//>>>>>>> Stashed changes
 
 const router = createBrowserRouter([
     {
@@ -17,7 +22,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <StudiesPage />
+                element: <MyStudyPage />
+            },
+            {
+                path:"home",
+                element:<HomePage/>
             },
             {
                 path: "login",
@@ -64,6 +73,10 @@ const router = createBrowserRouter([
                     }
                 ]
             },
+            {
+                path: "mystudy",
+                element: <MyStudyPage/>
+            }
         ]
     }
 ])

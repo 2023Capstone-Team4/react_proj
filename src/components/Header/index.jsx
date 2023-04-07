@@ -48,7 +48,7 @@ function Header() {
             <div className={styles.wrapper}>
                 <span id={styles.icon_logo}><a href="">Logo</a></span>
                 <ul className={styles.menubar}>
-                    <li><Link to={`${process.env.PUBLIC_URL}/`}>홈</Link></li>
+                    <li><Link to={`${process.env.PUBLIC_URL}`}>홈</Link></li>
                     <li><Link to={`${process.env.PUBLIC_URL}/mystudy`}>내학습</Link></li>
                     <li><Link to={`${process.env.PUBLIC_URL}/community`}>커뮤니티</Link></li>
                 </ul>

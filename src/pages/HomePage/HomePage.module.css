@@ -20,8 +20,14 @@
 .wrapper_title{
     font-size: 20px;
     margin-bottom: 15px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.wrapper_title:hover{
+    transform: translateY(-2px);
 }
 .items{
+    border: 1px solid #A5A5A5;
     display: inline-block;
     width: 100%;
     padding: 15px 15px 15px 15px;
@@ -32,6 +38,13 @@
 .item_subTitle{
     display: block;
     padding: 10px;
+    font-size: large;
+}
+.item_style1:hover{
+    transform: translateY(-2px);
+}
+.item_style2:hover{
+    transform: translateY(-2px);
 }
 .item_style1{
     float: left;
@@ -41,6 +54,7 @@
     background-color: #CFDAC8;
     margin: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 4px #A5A5A5;
 }
 .item_style2{
     float: left;
@@ -50,24 +64,34 @@
     background-color: #C4DFAA;
     margin: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 4px #A5A5A5;
 }
 .item_title{
     padding-bottom: 15px;
 }
-table {
-    padding: 15px;
+.item_mylog{
+    border-radius: 10px;
 }
-td{
-    padding:5px;
+.item_mylog_title{
+    padding:10px;
+    font-weight: bold;
 }
-.item_table{
-    /*background-color: white;*/
-    padding: 30px;
-    width: auto;
-    height: auto;
+.item_mylog_cnt{
+    display:inline-block;
+    margin: 10px;
+    text-align: right;
 }
-.item_table th{
+.item_mylog_content{
     padding: 5px;
-    border-radius: 8px;
-    background-color: white;
+}
+.item_studylog_title{
+    padding:10px;
+    font-weight: bold;
+}
+.item_studylog_cnt{
+    display:flex;
+    margin: 10px;
+}
+.item_studylog_content{
+    padding: 5px;
 }
