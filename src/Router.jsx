@@ -44,31 +44,31 @@ const router = createBrowserRouter([
                         element: <StudiesPage />,
                     },
                     {
-                        path: "studies",
+                        path: "studies/*",
                         element: <StudiesPage />
                     },
                     {
-                        path: "studies/add",
+                        path: "study/add",
                         element: <StudyFormPage />
                     },
                     {
-                        path: "studies/:studyId",
+                        path: "study/:studyId",
                         element: <StudyPage />
                     },
                     {
-                        path: "studies/:sutdyId/ranking",
+                        path: "study/:sutdyId/ranking",
                         element: <StudyRankingPage />
                     },
                     {
-                        path: "studies/:sutdyId/members",
+                        path: "study/:sutdyId/members",
                         element: <StudyMemberPage />
                     },
                     {
-                        path: "studies/:sutdyId/board",
+                        path: "study/:sutdyId/board",
                         element: <StudyBoardPage />
                     },
                     {
-                        path: "studies/:sutdyId/board/add",
+                        path: "study/:sutdyId/board/add",
                         element: <StudyBoardFormPage />
                     }
                 ]

@@ -6,13 +6,13 @@ function StudyBoard() {
     return <>
         <div className={styles.container}>
             <div className={styles.banner__wrapper}>
-                <Link to={`${process.env.PUBLIC_URL}/community/studies/1`}><button className={styles.banner__btn}><TiChevronLeft /> 스터디 홈으로</button></Link>
+                <Link to={`${process.env.PUBLIC_URL}/community/study/1`}><button className={styles.banner__btn}><TiChevronLeft /> 스터디 홈으로</button></Link>
                 <div className={styles.banner__title}>
                     스터디 게시판
                 </div>
             </div>
             <div className={styles.btn__add__wrapper}>
-                <Link to={`${process.env.PUBLIC_URL}/community/studies/1/board/add`}>
+                <Link to={`${process.env.PUBLIC_URL}/community/study/1/board/add`}>
                     <button className={styles.btn__add}>
                         <div className={styles.btn__back} />
                         게시물 작성
