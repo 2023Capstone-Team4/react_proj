@@ -21,8 +21,8 @@ function JoinPage() {
                 { shouldFocus: true } //에러 발생시 해당 구간에 포커스하게 하는 설정
             );
         } else {
-            console.log(data);
-            console.log(errors);
+            // console.log(data);
+            // console.log(errors);
 
             fetch('http://localhost:8080/members/add', {
                 method: 'POST',

@@ -6,8 +6,8 @@ function LoginPage() {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onValid = (data) => {
-        console.log(data);
-        console.log(errors);
+        // console.log(data);
+        // console.log(errors);
         fetch('http://localhost:8080/login', {
             method: 'POST',
             credentials: 'include',
