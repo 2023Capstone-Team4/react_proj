@@ -21,6 +21,7 @@ function StudyFormPage() {
                 "maxPeople": data.maxPeople,
                 "introduce": data.introduce,
             }),
+            credentials: 'include',
         }).then(res => {
             console.log(res);
             if (res.ok) {
