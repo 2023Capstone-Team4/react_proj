@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useMatch, useNavigate } from 'react-router-dom';
+import { Link, useMatch, useNavigate, useSearchParams } from 'react-router-dom';
 import { category_BackToFront, category_BackToFront_URL, category_FrontToBack_URL } from "../../utils/getCategory";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward, IoIosSearch } from "react-icons/io";
+import { useForm } from "react-hook-form";
 import styles from "./StudiesPage.module.css";
 
 function StudiesPage() {
@@ -40,7 +41,9 @@ function StudiesPage() {
     const academicsMatch = useMatch("community/studies/academics");
     const careerMatch = useMatch("community/studies/career");
     const lifeMatch = useMatch("community/studies/life");
+    //const searchMatch = useMatch("community/studies/search");
     const [curCategory, setCurCategory] = useState("all");
+    const [searchParams, setSearchParams] = useSearchParams();
     const getCurrentCategory = () => {
         if (match) return "all";
         else if (programmingMatch) return "it-programming";
@@ -49,7 +52,8 @@ function StudiesPage() {
         else if (creativeMatch) return "creative";
         else if (academicsMatch) return "academics";
         else if (careerMatch) return "career";
-        else return "life";
+        else if (lifeMatch) return "life";
+        else return "search";
     }
     const onCategoryMove = (categoryName) => {
         if(categoryName === "all"){
@@ -61,12 +65,20 @@ function StudiesPage() {
         }
     }
 
+    //searchbar
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onValid = (data) => {
+        setCurCategory("search");
+        navigate(`${process.env.PUBLIC_URL}/community/studies/search?keyword=${data.keyword}`);
+    }
+
     useEffect(() => {
         const curCategory = getCurrentCategory();
-        console.log(curCategory);
+        const keyword = searchParams.get("keyword");
         const API_URI = curCategory === "all" ? "http://localhost:8080/study/recruit" : 
+        keyword ?  `http://localhost:8080/study/recruit/search/${keyword}` :
         `http://localhost:8080/study/recruit/${category_FrontToBack_URL(curCategory)}`;
-        console.log(API_URI);
+        
         const getStudies = async () => {
             try {
                 const response = await fetch(`${API_URI}?page=${curPage - 1}`, {
@@ -85,7 +97,11 @@ function StudiesPage() {
             }
         }
         getStudies().then((res) => {
-            setStudies(res.content);
+            if(res.content){
+                setStudies(res.content);
+            }else{
+                setStudies(res);
+            }
             setTotalPages(res.totalPages);
         })
     }, [curPage, curCategory]);
@@ -101,6 +117,17 @@ function StudiesPage() {
                     </button>
                 </Link>
             </div>
+            <div className={styles.searchbar__wrapper}>
+                <form className={styles.searchbar} onSubmit={handleSubmit(onValid)}>
+                    <input 
+                        {...register("keyword", { required: "검색어 입력은 필수입니다." })}
+                        placeholder="keyword를 입력해주세요."/>
+                    <button type="submit"><IoIosSearch /></button>
+                </form>
+                <div className={styles.error_message}>
+                    {errors?.keyword?.message}
+                </div>
+            </div>
             <div className={styles.wrapper}>
                 <div>
                     <ul className={styles.sidebar}>
@@ -109,8 +136,8 @@ function StudiesPage() {
                             <li onClick={()=>onCategoryMove("all")}>전체 스터디</li>}
                         {categoryNames.map((categoryName, index) =>
                             getCurrentCategory() === categoryName ?
-                            <li onClick={()=>onCategoryMove(categoryName)} id={styles.li__focus}>{category_BackToFront_URL(categoryName)}</li> :
-                            <li onClick={()=>onCategoryMove(categoryName)}>{category_BackToFront_URL(categoryName)}</li>
+                            <li key={index} onClick={()=>onCategoryMove(categoryName)} id={styles.li__focus}>{category_BackToFront_URL(categoryName)}</li> :
+                            <li key={index} onClick={()=>onCategoryMove(categoryName)}>{category_BackToFront_URL(categoryName)}</li>
                         )}
                     </ul>
                 </div>
