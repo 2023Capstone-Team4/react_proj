@@ -36,7 +36,13 @@ function JoinPage() {
                     "age": data.age,
                     "sex": data.sex === "남성" ? 0 : 1,
                     "birth": new Date(data.year,data.month,data.date),
-                    "interst": data.category,
+                    "interst": data.category === "개발/프로그래밍" ? "IT_PROGRAMMING" : 
+                    data.category === "IT" ? "IT" :
+                    data.category === "게임 개발" ? "GAME_DEV" : 
+                    data.category === "크리에이티브" ? "CREATIVE" :
+                    data.category === "학문/외국어" ? "ACADEMICS" :
+                    data.category === "커리어" ? "CAREER" :
+                    "LIFE",
                     "email": data.email,
                 }),
             }).then(res => {

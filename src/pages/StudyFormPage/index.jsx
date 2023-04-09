@@ -9,7 +9,6 @@ function StudyFormPage() {
     const onValid = (data) => {
         console.log(data);
         console.log(errors);
-
         fetch('http://localhost:8080/study/new', {
             method: 'POST',
             headers: {
@@ -17,7 +16,13 @@ function StudyFormPage() {
             },
             body: JSON.stringify({
                 "name": data.name,
-                "category": data.category,
+                "category": data.category === "개발/프로그래밍" ? "IT_PROGRAMMING" : 
+                data.category === "IT" ? "IT" :
+                data.category === "게임 개발" ? "GAME_DEV" : 
+                data.category === "크리에이티브" ? "CREATIVE" :
+                data.category === "학문/외국어" ? "ACADEMICS" :
+                data.category === "커리어" ? "CAREER" :
+                "LIFE",  
                 "maxPeople": data.maxPeople,
                 "introduce": data.introduce,
             }),
