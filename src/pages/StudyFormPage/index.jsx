@@ -10,16 +10,16 @@ function StudyFormPage() {
         console.log(data);
         console.log(errors);
 
-        fetch('http://localhost:8080/study/add', {
+        fetch('http://localhost:8080/study/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // "name": data.name,
-                // "category": data.category,
-                // "limit": data.limit,
-                // "text": data.text,
+                "name": data.name,
+                "category": data.category,
+                "maxPeople": data.maxPeople,
+                "introduce": data.introduce,
             }),
         }).then(res => {
             console.log(res);
@@ -76,7 +76,7 @@ function StudyFormPage() {
                         스터디 제한인원
                     </label>
                     <input
-                        {...register("limit", {
+                        {...register("maxPeople", {
                             required: "스터디 제한인원 입력은 필수입니다.",
                             min: {
                                 value: 1,
@@ -92,7 +92,7 @@ function StudyFormPage() {
                         스터디 소개
                     </label>
                     <textarea
-                        {...register("text", { required: false })}
+                        {...register("introduce", { required: false })}
                         className={styles.textarea} />
                     <div className={styles.error_message}>
                         {errors?.text?.message}
