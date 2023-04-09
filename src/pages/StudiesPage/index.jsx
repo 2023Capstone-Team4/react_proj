@@ -1,9 +1,33 @@
 import { Link } from "react-router-dom";
 import styles from "./StudiesPage.module.css";
+import { useEffect } from "react";
 
 function StudiesPage() {
     const medium_text = "같이 캡스톤 나갈 스터디원 모집하고 있습니다!많은 관심 부탁드려요";
     const long_text = "토익 900점을 목표로 같이 공부하실 분 모집합니다!! 출석 중요 매주 수요일 건대입구역에서 스터디합니다! 필참! 회비 7000원입니다. 친목 좋아요!!! 다같이 영어마스터마스터!!!! 굳굳굳";
+
+    useEffect(()=>{
+        const getStudies = async() => {
+            try {
+                const response = await fetch('http://localhost:8080/study/recruit', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    }
+                });
+                if (!response.ok) throw new Error('bad server condition');
+                return response.json();
+              } catch (e) {
+                console.error('getStudies Error: ', e.message);
+                return false;
+            }
+        }
+        getStudies().then((res)=>{
+            console.log(res.content);
+        })
+    },[]);
 
     return <>
         <div className={styles.container}>
