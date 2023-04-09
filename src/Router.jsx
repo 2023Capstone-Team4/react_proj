@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
+import MyPage from "./pages/MyPage";
 import StudiesPage from "./pages/StudiesPage";
 //<<<<<<< Updated upstream
 import StudyFormPage from "./pages/StudyFormPage";
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: "join",
                 element: <JoinPage />
+            },
+            {
+                path: "mypage",
+                element: <MyPage />
             },
             {
                 path: "community",
