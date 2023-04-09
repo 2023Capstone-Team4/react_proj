@@ -46,7 +46,6 @@ function JoinPage() {
                     "email": data.email,
                 }),
             }).then(res => {
-                console.log(res);
                 if(res.ok){
                     alert("회원가입이 완료되었습니다.");
                     navigate(`${process.env.PUBLIC_URL}/login`);

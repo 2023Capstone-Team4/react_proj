@@ -19,7 +19,6 @@ function LoginPage() {
                 "password":data.password,
             }),
         }).then(res => {
-            console.log(res);
             if(res.ok){
                 alert("로그인이 완료되었습니다.");
                 navigate(`${process.env.PUBLIC_URL}/`);
