@@ -29,18 +29,18 @@ function MyPage() {
                     "name": data.name,
                     "age": data.age,
                     "sex": data.sex === "남성" ? 0 : 1,
-                    "birth": new Date(data.year,data.month,data.date),
-                    "interst": data.category === "개발/프로그래밍" ? "IT_PROGRAMMING" : 
-                    data.category === "IT" ? "IT" :
-                    data.category === "게임 개발" ? "GAME_DEV" : 
-                    data.category === "크리에이티브" ? "CREATIVE" :
-                    data.category === "학문/외국어" ? "ACADEMICS" :
-                    data.category === "커리어" ? "CAREER" :
-                    "LIFE",
+                    "birth": new Date(data.year, data.month, data.date),
+                    "interst": data.category === "개발/프로그래밍" ? "IT_PROGRAMMING" :
+                        data.category === "IT" ? "IT" :
+                            data.category === "게임 개발" ? "GAME_DEV" :
+                                data.category === "크리에이티브" ? "CREATIVE" :
+                                    data.category === "학문/외국어" ? "ACADEMICS" :
+                                        data.category === "커리어" ? "CAREER" :
+                                            "LIFE",
                     "email": data.email,
                 }),
             }).then(res => {
-                if(res.ok){
+                if (res.ok) {
                     alert("회원 정보 수정이 완료되었습니다.");
                     navigate(`${process.env.PUBLIC_URL}/mypage`);
                 }
@@ -49,11 +49,32 @@ function MyPage() {
             });
         }
     }
+    const onDelete = () => {
+        if (window.confirm("회원 탈퇴를 할 경우 관련된 모든 정보가 삭제됩니다. 삭제하시겠습니까?")) {
+            // 회원 탈퇴
+            // fetch('http://localhost:8080/members/delete', {
+            //     method: 'DELETE',
+            //     credentials: 'include',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            // }).then(res => {
+            //     if (res.ok) {
+            //         alert("회원 탈퇴가 완료되었습니다.");
+            //         navigate(`${process.env.PUBLIC_URL}/`);
+            //     }
+            // }).catch(error => {
+            //     console.log(error);
+            // });
+        } else {
+            onCancel();
+        }
+    }
     const onCancel = () => {
         navigate(-1);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const getMember = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/members/member`, {
@@ -76,14 +97,14 @@ function MyPage() {
             setValue("memberId", res.memberId);
             setValue("name", res.name);
             setValue("age", res.age);
-            setValue("sex",0 ? "남성":"여성");
+            setValue("sex", 0 ? "남성" : "여성");
             setValue("year", Number(res.birth.split("-")[0]));
             setValue("month", Number(res.birth.split("-")[1]));
             setValue("date", Number(res.birth.split("-")[2]));
             setValue("interest", category_BackToFront_URL(res.interest));
             setValue("email", res.email);
         });
-    },[]);
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -155,24 +176,24 @@ function MyPage() {
                         <select
                             {...register("year", { required: true })}
                             className={styles.input__birth}>
-                            {[...Array(50).keys()].map((index)=>
-                                <option key={index}>{index+1974}</option>
+                            {[...Array(50).keys()].map((index) =>
+                                <option key={index}>{index + 1974}</option>
                             )}
                         </select>
                         <span className={styles.input__birth__text}>년</span>
                         <select
                             {...register("month", { required: true })}
                             className={styles.input__birth}>
-                            {[...Array(12).keys()].map((index)=>
-                                <option key={index}>{index+1}</option>
+                            {[...Array(12).keys()].map((index) =>
+                                <option key={index}>{index + 1}</option>
                             )}
                         </select>
                         <span className={styles.input__birth__text}>월</span>
                         <select
                             {...register("date", { required: true })}
                             className={styles.input__birth}>
-                            {[...Array(31).keys()].map((index)=>
-                                <option key={index}>{index+1}</option>
+                            {[...Array(31).keys()].map((index) =>
+                                <option key={index}>{index + 1}</option>
                             )}
                         </select>
                         <span className={styles.input__birth__text}>일</span>
@@ -210,6 +231,10 @@ function MyPage() {
                     <button className={styles.button__submit} type="submit">
                         <div className={styles.button__back}></div>
                         수정
+                    </button>
+                    <button className={styles.button__delete} onClick={onDelete}>
+                        <div className={styles.button__back}></div>
+                        회원탈퇴
                     </button>
                     <button className={styles.button__cancel} onClick={onCancel}>
                         <div className={styles.button__back}></div>
