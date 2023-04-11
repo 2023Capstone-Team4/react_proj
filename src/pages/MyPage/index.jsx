@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { category_BackToFront, category_BackToFront_URL } from "../../utils/getCategory";
+import { category_BackToFront } from "../../utils/getCategory";
 import styles from "./MyPage.module.css";
 
 function MyPage() {
@@ -93,7 +93,7 @@ function MyPage() {
             }
         }
         getMember().then((res) => {
-            console.log(res);
+            //console.log(res);
             setValue("memberId", res.memberId);
             setValue("name", res.name);
             setValue("age", res.age);
@@ -101,7 +101,7 @@ function MyPage() {
             setValue("year", Number(res.birth.split("-")[0]));
             setValue("month", Number(res.birth.split("-")[1]));
             setValue("date", Number(res.birth.split("-")[2]));
-            setValue("interest", category_BackToFront_URL(res.interest));
+            setValue("category", category_BackToFront(res.interest[0]));
             setValue("email", res.email);
         });
     }, []);
