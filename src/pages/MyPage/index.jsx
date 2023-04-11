@@ -137,7 +137,7 @@ function MyPage() {
                         className={styles.input} type="password" />
                     <div className={styles.error_message}>
                         {errors?.password_check?.message}
-                    </div>
+                    </div> 
                     {/* 추가 - 2023.03.26 백엔드 회의 내역 반영*/}
                     <label className={styles.input__title}>
                         이름

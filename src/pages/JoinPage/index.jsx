@@ -21,9 +21,9 @@ function JoinPage() {
                 { shouldFocus: true } //에러 발생시 해당 구간에 포커스하게 하는 설정
             );
         } else {
-            // console.log(data);
+            //console.log(new Date(data));
             // console.log(errors);
-
+            
             fetch('http://localhost:8080/members/add', {
                 method: 'POST',
                 headers: {
@@ -35,7 +35,7 @@ function JoinPage() {
                     "name": data.name,
                     "age": data.age,
                     "sex": data.sex === "남성" ? 0 : 1,
-                    "birth": new Date(data.year,data.month,data.date),
+                    "birth": new Date(Date.UTC(data.year,data.month-1,data.date)),
                     "interst": data.category === "개발/프로그래밍" ? "IT_PROGRAMMING" : 
                     data.category === "IT" ? "IT" :
                     data.category === "게임 개발" ? "GAME_DEV" : 
@@ -46,6 +46,7 @@ function JoinPage() {
                     "email": data.email,
                 }),
             }).then(res => {
+                console.log(res);
                 if(res.ok){
                     alert("회원가입이 완료되었습니다.");
                     navigate(`${process.env.PUBLIC_URL}/login`);
