@@ -48,7 +48,7 @@ function HomePage(){
             {/*내 스터디 div*/}
             <div className={styles.wrapper_style2}>
                 <div className={styles.wrapper_title}>
-                    <Link to={`${process.env.PUBLIC_URL}/community`}>
+                    <Link to={`${process.env.PUBLIC_URL}/myCommunity`}>
                         <p>내 스터디 ></p>
                     </Link>
                 </div>

@@ -13,6 +13,7 @@ import StudyBoardFormPage from "./pages/StudyBoardFormPage";
 //=======
 import HomePage from "./pages/HomePage";
 import MyStudyPage from "./pages/MyStudyPage";
+import CommunityPage from "./pages/CommunityPage";
 //>>>>>>> Stashed changes
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: "join",
                 element: <JoinPage />
+            },
+            {
+                path: "myCommunity",
+                element: <CommunityPage/>
             },
             {
                 path: "community",
