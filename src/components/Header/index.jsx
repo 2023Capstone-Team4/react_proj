@@ -40,7 +40,7 @@ function Header() {
                 <ul className={styles.menubar}>
                     <li><Link to={`${process.env.PUBLIC_URL}/`}>홈</Link></li>
                     <li><Link to={`${process.env.PUBLIC_URL}/mystudy`}>내학습</Link></li>
-                    <li><Link to={`${process.env.PUBLIC_URL}/community`}>커뮤니티</Link></li>
+                    <li><Link to={`${process.env.PUBLIC_URL}/community/studies`}>커뮤니티</Link></li>
                 </ul>
             </div>
         </div> : null}
@@ -50,7 +50,7 @@ function Header() {
                 <ul className={styles.menubar}>
                     <li><Link to={`${process.env.PUBLIC_URL}`}>홈</Link></li>
                     <li><Link to={`${process.env.PUBLIC_URL}/mystudy`}>내학습</Link></li>
-                    <li><Link to={`${process.env.PUBLIC_URL}/community`}>커뮤니티</Link></li>
+                    <li><Link to={`${process.env.PUBLIC_URL}/community/studies`}>커뮤니티</Link></li>
                 </ul>
             </div>
             <div className={styles.avatarbar}>

@@ -39,14 +39,14 @@ function StudyPage() {
                 <div className={styles.items__wrapper}>
                     <div className={styles.items__wrapper__row}>
                         <div className={styles.item}>
-                            <Link to={`${process.env.PUBLIC_URL}/community/studies/1/calender`}>
+                            <Link to={`${process.env.PUBLIC_URL}/community/study/1/calender`}>
                                 <span className={styles.item__title}>스터디 일정 <IoIosArrowForward /></span>
                             </Link>
                             <Calender />
                         </div>
                         <div className={styles.items__wrapper__col}>
                             <div className={styles.item}>
-                                <Link to={`${process.env.PUBLIC_URL}/community/studies/1/ranking`}>
+                                <Link to={`${process.env.PUBLIC_URL}/community/study/1/ranking`}>
                                     <span className={styles.item__title}>스터디 랭킹 <IoIosArrowForward /></span>
                                 </Link>
                                 <div className={styles.ranking__wrapper}>
@@ -57,7 +57,7 @@ function StudyPage() {
                                 </div>
                             </div>
                             <div className={styles.item}>
-                                <Link to={`${process.env.PUBLIC_URL}/community/studies/1/members`}>
+                                <Link to={`${process.env.PUBLIC_URL}/community/study/1/members`}>
                                     <span className={styles.item__title}>스터디 멤버 <IoIosArrowForward /></span>
                                 </Link>
                                 <div className={styles.member__wrapper}>
@@ -70,7 +70,7 @@ function StudyPage() {
                         </div>
                     </div>
                     <div className={styles.item}>
-                        <Link to={`${process.env.PUBLIC_URL}/community/studies/1/board`}>
+                        <Link to={`${process.env.PUBLIC_URL}/community/study/1/board`}>
                             <span className={styles.item__title}>스터디 게시판 <IoIosArrowForward /></span>
                         </Link>
                         <div className={styles.board__wrapper}>

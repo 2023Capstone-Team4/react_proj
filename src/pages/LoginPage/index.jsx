@@ -6,8 +6,8 @@ function LoginPage() {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onValid = (data) => {
-        console.log(data);
-        console.log(errors);
+        // console.log(data);
+        // console.log(errors);
         fetch('http://localhost:8080/login', {
             method: 'POST',
             credentials: 'include',
@@ -19,7 +19,6 @@ function LoginPage() {
                 "password":data.password,
             }),
         }).then(res => {
-            console.log(res);
             if(res.ok){
                 alert("로그인이 완료되었습니다.");
                 navigate(`${process.env.PUBLIC_URL}/`);

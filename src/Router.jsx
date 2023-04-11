@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
+import MyPage from "./pages/MyPage";
 import StudiesPage from "./pages/StudiesPage";
 //<<<<<<< Updated upstream
 import StudyFormPage from "./pages/StudyFormPage";
@@ -38,8 +39,15 @@ const router = createBrowserRouter([
                 element: <JoinPage />
             },
             {
+//<<<<<<< HEAD
                 path: "myCommunity",
                 element: <CommunityPage/>
+//=======
+            },
+            {
+                path: "mypage",
+                element: <MyPage />
+// >>>>>>> 545a96a349c5e184c232b8d02effc679d31384ae
             },
             {
                 path: "community",
@@ -49,31 +57,31 @@ const router = createBrowserRouter([
                         element: <StudiesPage />,
                     },
                     {
-                        path: "studies",
+                        path: "studies/*",
                         element: <StudiesPage />
                     },
                     {
-                        path: "studies/add",
+                        path: "study/add",
                         element: <StudyFormPage />
                     },
                     {
-                        path: "studies/:studyId",
+                        path: "study/:studyId",
                         element: <StudyPage />
                     },
                     {
-                        path: "studies/:sutdyId/ranking",
+                        path: "study/:sutdyId/ranking",
                         element: <StudyRankingPage />
                     },
                     {
-                        path: "studies/:sutdyId/members",
+                        path: "study/:sutdyId/members",
                         element: <StudyMemberPage />
                     },
                     {
-                        path: "studies/:sutdyId/board",
+                        path: "study/:sutdyId/board",
                         element: <StudyBoardPage />
                     },
                     {
-                        path: "studies/:sutdyId/board/add",
+                        path: "study/:sutdyId/board/add",
                         element: <StudyBoardFormPage />
                     }
                 ]
