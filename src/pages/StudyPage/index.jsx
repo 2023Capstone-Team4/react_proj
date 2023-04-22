@@ -40,7 +40,6 @@ function StudyPage() {
     }
     useEffect(()=>{
         getStudy(params.studyId).then(res=>{
-            console.log(res);
             setStudy(res);
         });
         getMembers(params.studyId).then(res=>{
@@ -99,7 +98,9 @@ function StudyPage() {
                             </Link>
                             <div className={styles.member__wrapper}>
                                 {members.map((member)=>
-                                    <div className={styles.member__item}>{member.name}</div>
+                                    <div
+                                        key={member.id} 
+                                        className={styles.member__item}>{member.name}</div>
                                 )}
                             </div>
                         </div>

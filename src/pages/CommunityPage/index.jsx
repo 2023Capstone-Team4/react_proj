@@ -1,8 +1,29 @@
 import styles from "./CommunityPage.module.css";
 import {Link} from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function CommunityPage(){
-    return <>
+    const [recruits, setRecruits] = useState([]);
+    const getRecruitment = async() => {
+        const response = await fetch(`http://localhost:8080/study/recruitment`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        return response.json();
+    }
+    
+    useEffect(()=>{
+        getRecruitment().then((res)=>{
+            console.log(res.content);
+        })
+    },[]);
+
+    return recruits && <>
         <div className={styles.container}>
             <div className={styles.conatiner_title}>
                 커뮤니티
@@ -26,26 +47,13 @@ function CommunityPage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 모집글</p>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
+                    {recruits.map((recruit)=>
+                        <div className={styles.item_style1}>
+                            <p className={styles.item_title}>스터디 이름</p>
+                            <p>기간</p>
+                            <p>인원</p>
+                            </div>
+                    )}
                 </div>
             </div>
             <div className={styles.wrapper}>
