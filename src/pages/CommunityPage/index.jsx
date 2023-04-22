@@ -69,14 +69,11 @@ function CommunityPage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 모집글</p>
-                    {recruits.map((recruit,index)=>
-                        <div
-                            key={index}
-                            className={styles.item_style1}>
-                            {/* <p className={styles.item_title}>스터디 이름</p>
+                    {recruits.map((recruit)=>
+                        <div className={styles.item_style1}>
+                            <p className={styles.item_title}>스터디 이름</p>
                             <p>기간</p>
-                            <p>인원</p> */}
-                            <p>{recruit}</p>
+                            <p>인원</p>
                         </div>
                     )}
                 </div>
