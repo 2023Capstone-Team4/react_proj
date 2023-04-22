@@ -44,7 +44,7 @@ function CommunityPage(){
 
     return recruits && studyLists && <>
         <div className={styles.container}>
-            <div className={styles.container_title}>
+            <div className={styles.conatiner_title}>
                 커뮤니티
             </div>
             <div className={styles.wrapper}>
