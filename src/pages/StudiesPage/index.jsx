@@ -106,6 +106,20 @@ function StudiesPage() {
         })
     }, [curPage, curCategory]);
 
+    //join study function 
+    const onStudy = async(studyId) => {
+        const response = await fetch(`http://localhost:8080/study/join/${studyId}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        navigate(`${process.env.PUBLIC_URL}/community/study/${studyId}`);
+    }
+
     return <>
         <div className={styles.container}>
             <div className={styles.banner__wrapper}>
@@ -144,8 +158,8 @@ function StudiesPage() {
                 <div className={styles.items__wrapper}>
                     <div className={styles.items}>
                         {studies.map((study) =>
-                            <div className={styles.item} key={study.id}>
-                                <Link to={`${process.env.PUBLIC_URL}/community/study/${study.id}`}>
+                            <div className={styles.item} key={study.id} onClick={()=>onStudy(study.id)}>
+                                {/* <Link to={`${process.env.PUBLIC_URL}/community/study/${study.id}`}> */}
                                     <div className={styles.item__title}>
                                         {/* <span className={styles.item__title__open}>모집중</span> */}
                                         <span className={styles.item__title__text}>{study.studyName}</span>
@@ -159,7 +173,7 @@ function StudiesPage() {
                                             {study.introduce.length > 80 ? study.introduce.slice(0, 80) + "..." : study.introduce}
                                         </p>
                                     </div>
-                                </Link>
+                                {/* </Link> */}
                             </div>
                         )}
                     </div>
