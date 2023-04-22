@@ -1,8 +1,48 @@
 import styles from "./CommunityPage.module.css";
-import {Link} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function CommunityPage(){
-    return <>
+    const [recruits, setRecruits] = useState([]);
+    const [studyLists, setStudyLists] = useState([]);
+
+    const getStudyList = async() => {
+        const response = await fetch(`http://localhost:8080/study/my`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        return response.json();
+    }
+
+    const getRecruitment = async() => {
+        const response = await fetch(`http://localhost:8080/study/recruitment`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        return response.json();
+    }
+    useEffect(()=>{
+        getStudyList().then((res)=>{
+            console.log(res);
+            setStudyLists(res.content);
+        });
+        getRecruitment().then((res)=>{
+            console.log(res);
+            setRecruits(res.content);
+        })
+    },[]);
+
+    return recruits && studyLists && <>
         <div className={styles.container}>
             <div className={styles.conatiner_title}>
                 커뮤니티
@@ -18,34 +58,27 @@ function CommunityPage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 내 스터디</p>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 소식</p>
-                        <p>스터디 이벤트 개최</p>
-                    </div>
+                    {studyLists.map(study => (
+                        <div key={study.id} className={styles.item_style1}>
+                            <div>{study.studyName}</div>
+                            <div>{study.category}</div>
+                            <div>{study.maxPeople}</div>
+                            <div>{study.introduce}</div>
+                        </div>
+                    ))}
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 모집글</p>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>스터디 이름</p>
-                        <p>기간</p>
-                        <p>인원</p>
-                    </div>
+                    {recruits.map((recruit,index)=>
+                        <div
+                            key={index}
+                            className={styles.item_style1}>
+                            {/* <p className={styles.item_title}>스터디 이름</p>
+                            <p>기간</p>
+                            <p>인원</p> */}
+                            <p>{recruit}</p>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={styles.wrapper}>
