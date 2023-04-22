@@ -9,7 +9,7 @@ function CommunityPage(){
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.wrapper_title}>
-                    <Link to={`${process.env.PUBLIC_URL}/start`}>
+                    <Link to={`${process.env.PUBLIC_URL}/community/studies`}>
                         <p>스터디 ></p>
                     </Link>
                 </div>
