@@ -50,12 +50,8 @@ const router = createBrowserRouter([
 // >>>>>>> 545a96a349c5e184c232b8d02effc679d31384ae
             },
             {
-                path: "community/studies",
+                path: "community",
                 children:[
-                    {
-                        path: "",
-                        element: <StudiesPage />,
-                    },
                     {
                         path: "studies/*",
                         element: <StudiesPage />
