@@ -11,10 +11,24 @@ function OpenModalButton({onClick}){
     );
 }
 function ModalContent({isOpen, onRequestClose}){
+    const [checked, setChecked] = useState(false);
+
+    const toggleSwitch = () => {
+        setChecked(!checked);
+    };
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose}  className={styles.modal_popup}>
             <div className={styles.modal_body}>
-                <div>화면송출</div>
+                <div className={styles.modal_title}>설정</div>
+                <div className={styles.modal_opt1}>
+                    <div className={styles.modal_cam}>화면설정</div>
+                    <div className={styles.modal_cam_switch}>
+                        <label className={styles.switch}>
+                            <input type="checkbox" checked={checked} onChange={toggleSwitch}/>
+                            <span className={styles.slider}></span>
+                        </label>
+                    </div>
+                </div>
                 <div>음소거</div>
                 <div>졸음알림</div>
                 <div>자세교정 알림</div>
