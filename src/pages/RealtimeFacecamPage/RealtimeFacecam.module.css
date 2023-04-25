@@ -50,6 +50,7 @@
 .setting_button:hover{
     transform: translateY(-2px);
 }
+
 .finish_button{
     float: right;
     padding: 10px;
@@ -62,7 +63,47 @@
     border: solid 1px black;
     padding: 10px;
     font-weight: bold;
+    font-size: 15px;
 }
 .finish_button:hover{
     transform: translateY(-2px);
+}
+.modal_button{
+    font-size: 15px;
+    border: none;
+    background-color:white;
+    font-weight: bold;
+}
+.modal_popup{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0,0,0,0.4);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.modalCloseButton{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    color: rgba(0,0,0,0.7);
+    background-color: transparent;
+    font-size: 20px;
+}
+.modalCloseButton:hover{
+    cursor: pointer;
+}
+.modal_body{
+    position:absolute;
+    width: 300px;
+    height: 500px;
+    padding: 40px;
+    text-align: center;
+    background-color: rgb(255,255,255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 }
