@@ -13,30 +13,71 @@ function OpenModalButton({ onClick }) {
     );
 }
 
-function ModalContent({ isOpen, onRequestClose, handleMute, handleShow }) {
-    const [checked, setChecked] = useState(false);
-    const toggleSwitch = () => {
-        setChecked(!checked);
-        handleMute();
+function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
+    const [cam_checked, cam_setChecked] = useState(false);
+    const [audio_checked, audio_setChecked] = useState(false);
+    const [sleep_checked, sleep_setChecked] = useState(false);
+    const [pose_checked, pose_setChecked] = useState(false);
+
+    const cam_toggleSwitch = () => {
+        cam_setChecked(!cam_checked);
         handleShow();
+        console.log("cam_checked", !cam_checked);
+    };
+    const audio_toggleSwitch = () => {
+        audio_setChecked(!audio_checked);
+        handleMute();
+        console.log("audio_checked", !audio_checked);
+    };
+    const sleep_toggleSwitch = () => {
+        sleep_setChecked(!sleep_checked);
+        console.log("sleep_checked", !sleep_checked);
+    };
+    const pose_toggleSwitch = () => {
+        pose_setChecked(!pose_checked);
+        console.log("pose_checked", !pose_checked);
     };
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose} className={styles.modal_popup}>
             <div className={styles.modal_body}>
                 <div className={styles.modal_title}>설정</div>
-                <div className={styles.modal_opt1}>
-                    <div className={styles.modal_cam}>화면설정</div>
-                    <div className={styles.modal_cam_switch}>
+                <div className={styles.modal_opt}>
+                    <div className={styles.modal_opt_title}>화면설정</div>
+                    <div className={styles.modal_opt_switch}>
+                        <label className={styles.switch}>
+                            <input type="checkbox" checked={cam_checked} onChange={cam_toggleSwitch}/>
+                            <span className={styles.slider}></span>
+                        </label>
+                    </div>
+                </div>
+                <div className={styles.modal_opt}>
+                    <div className={styles.modal_opt_title}>음소거</div>
+                    <div className={styles.modal_opt_switch}>
+                        <label className={styles.switch}>
+                            <input type="checkbox" checked={audio_checked} onChange={audio_toggleSwitch}/>
+                            <span className={styles.slider}></span>
+                        </label>
+                    </div>
+                </div>
+                <div className={styles.modal_opt}>
+                    <div className={styles.modal_opt_title}>졸음알림</div>
+                    <div className={styles.modal_opt_switch}>
+                        <label className={styles.switch}>
+                            <input type="checkbox" checked={sleep_checked} onChange={sleep_toggleSwitch}/>
+                            <span className={styles.slider}></span>
+                        </label>
+                    </div>
+                </div>
+                <div className={styles.modal_opt}>
+                    <div className={styles.modal_opt_title}>자세교정 알림</div>
+                    <div className={styles.modal_opt_switch}>
                         <label className={styles.switch}>
                             <input type="checkbox" checked={checked} onChange={toggleSwitch} />
                             <span className={styles.slider}></span>
                         </label>
                     </div>
                 </div>
-                <div>음소거</div>
-                <div>졸음알림</div>
-                <div>자세교정 알림</div>
                 <button className={styles.modalCloseButton} onClick={onRequestClose}>닫기</button>
             </div>
         </Modal>
