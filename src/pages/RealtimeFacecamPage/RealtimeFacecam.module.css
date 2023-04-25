@@ -108,15 +108,19 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 }
 .modal_title{
-    margin-right: 10px;
+    font-weight: bold;
+    font-size: 25px;
 }
-.modal_opt1{
+.modal_opt{
     padding: 10px;
+    margin: 10px;
 }
-.modal_cam{
+.modal_opt_title{
     display: inline-block;
+    font-weight: bold;
+    font-size: 18px;
 }
-.modal_cam_switch{
+.modal_opt_switch{
     display: inline-block;
 }
 .switch {
@@ -124,8 +128,8 @@
     /*align-items:center;*/
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 15px;
+    width: 40px;
+    height: 20px;
     margin-right: 10px;
 }
 .switch span{
@@ -145,6 +149,8 @@
     right: 0;
     bottom: 0;
     background-color: #E8EAE6;
+    border-radius: 2px;
+    border: solid black 1px;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -152,11 +158,13 @@
 .slider:before {
     position: absolute;
     content: "";
-    height: 8px;
-    width: 8px;
+    height: 12px;
+    width: 9px;
     left: 4px;
-    bottom: 4px;
+    bottom: 2px;
     background-color: white;
+    border: solid 1px black;
+    border-radius: 1px;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -168,5 +176,5 @@ input:checked + .slider {
 input:checked + .slider:before {
     -webkit-transform: translateX(7px);
     -ms-transform: translateX(7px);
-    transform: translateX(7px);
+    transform: translateX(12px);
 }
