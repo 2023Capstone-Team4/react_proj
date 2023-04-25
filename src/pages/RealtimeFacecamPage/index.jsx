@@ -73,7 +73,7 @@ function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
                     <div className={styles.modal_opt_title}>자세교정 알림</div>
                     <div className={styles.modal_opt_switch}>
                         <label className={styles.switch}>
-                            <input type="checkbox" checked={checked} onChange={toggleSwitch} />
+                            <input type="checkbox" checked={pose_checked} onChange={pose_toggleSwitch} />
                             <span className={styles.slider}></span>
                         </label>
                     </div>
@@ -150,7 +150,7 @@ function RealtimeFacecamPage() {
         }
 
         function handleIce(e) {
-            console.log("sent candidate: ", e.candidate);
+            //console.log("sent candidate: ", e.candidate);
             stompClient.send(`/ice/${room.roomName}`, {}, JSON.stringify({
                 id: userName,
                 ice: e.candidate
@@ -158,8 +158,8 @@ function RealtimeFacecamPage() {
         }
 
         function handleAddStream(data) {
-            console.log("final: ", data.streams[0], _myStream);
-            console.log(data);
+            //console.log("final: ", data.streams[0], _myStream);
+            //console.log(data);
             setStreams((prev) => [...prev, data.streams[0]]);
         }
 
@@ -205,20 +205,18 @@ function RealtimeFacecamPage() {
             stompClient.subscribe(`/topic/answer/${room.roomName}`, (answer) => {
                 if (JSON.parse(answer.body).id === userName) return;
                 console.log("received the answer");
-                console.log(myPeerConnections);
-                console.log(answer.body, userName);
                 if (JSON.parse(answer.body).callee === userName) {
                     myPeerConnections.get(JSON.parse(answer.body).caller).setRemoteDescription(JSON.parse(answer.body).answer);
                 }
             });
             stompClient.subscribe(`/topic/ice/${room.roomName}`, (ice) => {
-                console.log("ice: ", JSON.parse(ice.body));
+                //console.log("ice: ", JSON.parse(ice.body));
                 if (JSON.parse(ice.body).id === userName) return;
                 console.log("received candidate");
                 myPeerConnections.get(JSON.parse(ice.body).id).addIceCandidate(JSON.parse(ice.body).ice);
             });
             stompClient.subscribe(`/topic/exit/${room.roomName}`, (ice) => {
-                console.log("exit: ", JSON.parse(ice.body));
+                //console.log("exit: ", JSON.parse(ice.body));
 
                 if (JSON.parse(ice.body).id === userName) {
                     const localStream = myPeerConnections.get(JSON.parse(ice.body).id).getLocalStreams()[0];
