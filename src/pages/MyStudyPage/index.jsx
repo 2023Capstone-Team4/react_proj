@@ -25,7 +25,9 @@ function MyStudyPage(){
                         <p>오늘 학습 시간</p>
                         <p>0시간 24분</p>
                         <div>
-                            <button className={styles.item_button} >학습 시작</button>
+                            <button className={styles.item_button} >
+                                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam`}>학습 시작</Link>
+                            </button>
                         </div>
                         {/*<Link to={`${process.env.PUBLIC_URL}/start_personal`} className={styles.item_button}>학습 시작</Link>*/}
                     </div>

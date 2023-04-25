@@ -15,6 +15,7 @@ import StudyBoardFormPage from "./pages/StudyBoardFormPage";
 import HomePage from "./pages/HomePage";
 import MyStudyPage from "./pages/MyStudyPage";
 import CommunityPage from "./pages/CommunityPage";
+import RealtimeFacecamPage from "./pages/RealtimeFacecamPage";
 //>>>>>>> Stashed changes
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
                 path: "myCommunity",
                 element: <CommunityPage/>
 //=======
+            },
+            {
+                path: "realtimeFacecam",
+                element:<RealtimeFacecamPage/>
             },
             {
                 path: "mypage",
