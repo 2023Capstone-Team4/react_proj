@@ -61,10 +61,8 @@ const GlobalStyle = createGlobalStyle`
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <RecoilRoot>
       <RouterProvider router={router} />
       <GlobalStyle />
     </RecoilRoot>
-  </React.StrictMode>
 );
