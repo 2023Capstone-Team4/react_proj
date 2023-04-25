@@ -5,6 +5,9 @@ function MyStudyPage(){
 
     return <>
         <div className={styles.container}>
+            <div className={styles.container_title}>
+                내 학습
+            </div>
             {/*학습 시작*/}
             <div className={styles.wrapper_style1}>
                 <div className={styles.wrapper_title}>

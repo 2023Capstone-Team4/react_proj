@@ -4,6 +4,9 @@ import {Link} from "react-router-dom";
 function HomePage(){
     return <>
         <div className={styles.container}>
+            <div className={styles.container_title}>
+                홈
+            </div>
             {/*내 학습*/}
             <div className={styles.wrapper_style1}>
                 <div className={styles.wrapper_title}>
