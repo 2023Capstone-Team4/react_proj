@@ -17,7 +17,6 @@ function MyPage() {
         } else {
             // console.log(data);
             // console.log(errors);
-
             fetch('http://localhost:8080/members/edit', {
                 method: 'POST',
                 headers: {

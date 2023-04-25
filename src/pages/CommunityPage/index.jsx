@@ -33,11 +33,11 @@ function CommunityPage(){
     }
     useEffect(()=>{
         getStudyList().then((res)=>{
-            console.log(res);
+            // console.log(res);
             setStudyLists(res.content);
         });
         getRecruitment().then((res)=>{
-            console.log(res);
+            // console.log(res);
             setRecruits(res.content);
         })
     },[]);
@@ -54,7 +54,9 @@ function CommunityPage(){
                     </Link>
                 </div>
                 <div>
-                    <button className={styles.wrapper_button}>스터디 개설</button>
+                    <Link to={`${process.env.PUBLIC_URL}/community/study/add`}>
+                        <button className={styles.wrapper_button}>스터디 개설</button>
+                    </Link>
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 내 스터디</p>
@@ -69,12 +71,15 @@ function CommunityPage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 모집글</p>
-                    {recruits.map((recruit)=>
-                        <div className={styles.item_style1}>
-                            <p className={styles.item_title}>스터디 이름</p>
+                    {recruits.map((recruit,index)=>
+                        <div
+                            key={index}
+                            className={styles.item_style1}>
+                            {/* <p className={styles.item_title}>스터디 이름</p>
                             <p>기간</p>
-                            <p>인원</p>
-                        </div>
+                            <p>인원</p> */}
+                            <p>{recruit}</p>
+                            </div>
                     )}
                 </div>
             </div>

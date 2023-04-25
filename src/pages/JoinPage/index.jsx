@@ -21,9 +21,6 @@ function JoinPage() {
                 { shouldFocus: true } //에러 발생시 해당 구간에 포커스하게 하는 설정
             );
         } else {
-            //console.log(new Date(data));
-            // console.log(errors);
-            
             fetch('http://localhost:8080/members/add', {
                 method: 'POST',
                 headers: {
@@ -46,7 +43,6 @@ function JoinPage() {
                     "email": data.email,
                 }),
             }).then(res => {
-                console.log(res);
                 if(res.ok){
                     alert("회원가입이 완료되었습니다.");
                     navigate(`${process.env.PUBLIC_URL}/login`);

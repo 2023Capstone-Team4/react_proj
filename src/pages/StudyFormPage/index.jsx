@@ -7,8 +7,6 @@ function StudyFormPage() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const onValid = (data) => {
-        console.log(data);
-        console.log(errors);
         fetch('http://localhost:8080/study/new', {
             method: 'POST',
             headers: {
@@ -28,10 +26,10 @@ function StudyFormPage() {
             }),
             credentials: 'include',
         }).then(res => {
-            console.log(res);
             if (res.ok) {
                 alert("스터디 등록이 완료되었습니다.");
                 navigate(`${process.env.PUBLIC_URL}/community/studies`);
+                //navigate(-1); // back
             }
         }).catch(error => {
             console.log(error);
@@ -39,14 +37,15 @@ function StudyFormPage() {
 
     }
     const onCancel = () => {
-        navigate(`${process.env.PUBLIC_URL}/community/studies`);
+        // navigate(`${process.env.PUBLIC_URL}/community/studies`);
+        navigate(-1); // back
     }
 
     return <>
         <div className={styles.container}>
             <div className={styles.banner__wrapper}>
-                <Link to={`${process.env.PUBLIC_URL}/community/studies`}>
-                    <button className={styles.banner__btn}><TiChevronLeft /> 전체 스터디 목록으로</button>
+                <Link to={-1}>
+                    <button className={styles.banner__btn}><TiChevronLeft /> 뒤로</button>
                 </Link>
                 <p className={styles.banner__title}>스터디 개설</p>
             </div>
