@@ -11,7 +11,7 @@ function MyStudyPage(){
             {/*학습 시작*/}
             <div className={styles.wrapper_style1}>
                 <div className={styles.wrapper_title}>
-                    <Link to={`${process.env.PUBLIC_URL}/start`}>
+                    <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam`}>
                         <p>학습 시작 ></p>
                     </Link>
                 </div>
@@ -26,7 +26,7 @@ function MyStudyPage(){
                         <p>0시간 24분</p>
                         <div>
                             <button className={styles.item_button} >
-                                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam`}>학습 시작</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam/personal`}>학습 시작</Link>
                             </button>
                         </div>
                         {/*<Link to={`${process.env.PUBLIC_URL}/start_personal`} className={styles.item_button}>학습 시작</Link>*/}
@@ -36,7 +36,9 @@ function MyStudyPage(){
                         <p>오늘 학습 시간</p>
                         <p>0시간 12분</p>
                         <div>
-                            <button className={styles.item_button} >학습 시작</button>
+                            <button className={styles.item_button}>
+                                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam/group`}>학습 시작</Link>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,9 @@
     padding: 10px;
     font-weight: bold;
 }
+.wrapper_button{
+    background-color: #F5F5F5;
+}
 .wrapper{
     /*border: 1px solid #A5A5A5;*/
     padding-top: 15px;
@@ -59,4 +62,7 @@
     border: solid 1px black;
     padding: 10px;
     font-weight: bold;
+}
+.finish_button:hover{
+    transform: translateY(-2px);
 }
