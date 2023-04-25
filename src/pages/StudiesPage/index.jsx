@@ -117,7 +117,7 @@ function StudiesPage() {
             }
         });
         if (!response.ok) throw new Error('bad server condition');
-        navigate(`${process.env.PUBLIC_URL}/community/study/${stnpmudyId}`);
+        navigate(`${process.env.PUBLIC_URL}/community/study/${studyId}`);
     }
 
     return <>
