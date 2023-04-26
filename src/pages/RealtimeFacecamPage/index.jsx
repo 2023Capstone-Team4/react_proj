@@ -289,7 +289,7 @@ function RealtimeFacecamPage() {
                 )}
             </div>
             <div className={styles.bottom_layer}>
-                <button className={styles.finish_button}>
+                <button className={styles.finish_button} onClick={handleExit}>
                     <Link to={`${process.env.PUBLIC_URL}/mystudy`}>종료</Link>
                 </button>
                 <div className={styles.setting_button}>
