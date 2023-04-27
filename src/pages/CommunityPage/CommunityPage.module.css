@@ -71,6 +71,8 @@
 }
 .item_content{
     padding:5px;
+    min-width: 200px;
+    max-width: 290px;
     /*margin-bottom: 5px;*/
 }
 .item_content_title{

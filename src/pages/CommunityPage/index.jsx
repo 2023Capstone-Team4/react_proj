@@ -74,7 +74,7 @@ function CommunityPage(){
                             </div>
                             <div className={styles.item_content}>
                                 <div><pre> 제한인원</pre></div>
-                                <p>{study.maxPeople}명</p>
+                                <p><pre> {study.maxPeople}명</pre></p>
                             </div>
                         </div>
                     ))}
