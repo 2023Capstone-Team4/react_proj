@@ -49,6 +49,7 @@
 .item_subTitle{
     display: block;
     padding: 10px;
+    font-weight: bold;
     font-size: large;
 }
 .item_style1:hover{
@@ -67,4 +68,40 @@
 }
 .item_title{
     padding-bottom: 15px;
+}
+.item_content{
+    padding:5px;
+    /*margin-bottom: 5px;*/
+}
+.item_content_title{
+    display: block;
+    padding: 5px;
+    font-weight: bold;
+    font-size: large;
+    border-bottom:1px solid #545E92;
+    margin-bottom: 5px;
+}
+.item_content div{
+    display: inline-block;
+    border-left:3px dotted teal;
+    /*background-color:white;*/
+    font-weight: bold;
+    /*float: left;*/
+    margin-bottom: 5px;
+}
+.item_content p{
+    /*float: right;*/
+    margin-bottom: 5px;
+    line-height: 160%;
+}
+.item_content_category{
+    /*float: left;*/
+    display:inline-block;
+    background-color: rgba(84, 94, 146, 0.8);
+    color: #F8F9FA;
+    border-radius: 20px;
+    padding:4px 8px;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
 }

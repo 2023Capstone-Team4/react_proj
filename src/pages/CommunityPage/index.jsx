@@ -62,10 +62,20 @@ function CommunityPage(){
                     <p className={styles.item_subTitle}> 내 스터디</p>
                     {studyLists.map(study => (
                         <div key={study.id} className={styles.item_style1}>
-                            <div>{study.studyName}</div>
-                            <div>{study.category}</div>
-                            <div>{study.maxPeople}</div>
-                            <div>{study.introduce}</div>
+                            <div className={styles.item_content_category}>
+                                <div>#{study.category}</div>
+                            </div>
+                            <div className={styles.item_content_title}>
+                                <div>{study.studyName}</div>
+                            </div>
+                            <div className={styles.item_content}>
+                                <div><pre> 스터디 소개</pre></div>
+                                <p>{study.introduce}</p>
+                            </div>
+                            <div className={styles.item_content}>
+                                <div><pre> 제한인원</pre></div>
+                                <p>{study.maxPeople}명</p>
+                            </div>
                         </div>
                     ))}
                 </div>
