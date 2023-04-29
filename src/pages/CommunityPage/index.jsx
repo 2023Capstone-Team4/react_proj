@@ -60,7 +60,8 @@ function CommunityPage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 내 스터디</p>
-                    {studyLists.map(study => (
+                    {studyLists.map(study =>
+                        <Link to={`${process.env.PUBLIC_URL}/community/study/${study.id}`}>
                         <div key={study.id} className={styles.item_style1}>
                             <div className={styles.item_content_category}>
                                 <div>#{study.category}</div>
@@ -77,19 +78,18 @@ function CommunityPage(){
                                 <p><pre> {study.maxPeople}명</pre></p>
                             </div>
                         </div>
-                    ))}
+                        </Link>
+                    )}
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 모집글</p>
-                    {recruits.map((recruit,index)=>
+                    {recruits.map((recruit)=>
                         <div
-                            key={index}
+                            key={recruit.id}
                             className={styles.item_style1}>
-                            {/* <p className={styles.item_title}>스터디 이름</p>
-                            <p>기간</p>
-                            <p>인원</p> */}
-                            <p>{recruit}</p>
-                            </div>
+                            <p className={styles.item_title}>{recruit.studyName}</p>
+                            <p>{recruit.introduce}</p>
+                        </div>
                     )}
                 </div>
             </div>
