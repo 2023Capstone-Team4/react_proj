@@ -60,8 +60,8 @@ function StudyPage() {
                     {menuOpen ? <div>
                         <div className={styles.back} />
                             <ul className={styles.subbar}>
-                                <li><Link to={`${process.env.PUBLIC_URL}/community/studies/1/setting`}>스터디 설정</Link></li>
-                                <li><Link to={`${process.env.PUBLIC_URL}/community/studies/1/setting`}>스터디 탈퇴</Link></li>
+                                <li><Link to={`${process.env.PUBLIC_URL}/community/studies/${params.studyId}/setting`}>스터디 설정</Link></li>
+                                <li><Link to={`${process.env.PUBLIC_URL}/community/studies/${params.studyId}/setting`}>스터디 탈퇴</Link></li>
                             </ul>
                         </div> : null}
                 </div>
@@ -75,14 +75,14 @@ function StudyPage() {
             <div className={styles.items__wrapper}>
                 <div className={styles.items__wrapper__row}>
                     <div className={styles.item}>
-                        <Link to={`${process.env.PUBLIC_URL}/community/study/1/calender`}>
+                        <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/calender`}>
                             <span className={styles.item__title}>스터디 일정 <IoIosArrowForward /></span>
                         </Link>
                         <Calender />
                     </div>
                     <div className={styles.items__wrapper__col}>
                         <div className={styles.item}>
-                            <Link to={`${process.env.PUBLIC_URL}/community/study/1/ranking`}>
+                            <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/ranking`}>
                                 <span className={styles.item__title}>스터디 랭킹 <IoIosArrowForward /></span>
                             </Link>
                             <div className={styles.ranking__wrapper}>
@@ -93,7 +93,7 @@ function StudyPage() {
                             </div>
                         </div>
                         <div className={styles.item}>
-                            <Link to={`${process.env.PUBLIC_URL}/community/study/1/members`}>
+                            <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/members`}>
                                 <span className={styles.item__title}>스터디 멤버 <IoIosArrowForward /></span>
                             </Link>
                             <div className={styles.member__wrapper}>
@@ -107,7 +107,7 @@ function StudyPage() {
                     </div>
                 </div>
                 <div className={styles.item}>
-                    <Link to={`${process.env.PUBLIC_URL}/community/study/1/board`}>
+                    <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/board`}>
                         <span className={styles.item__title}>스터디 게시판 <IoIosArrowForward /></span>
                     </Link>
                     <div className={styles.board__wrapper}>

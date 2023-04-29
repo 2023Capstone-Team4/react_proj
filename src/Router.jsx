@@ -74,19 +74,19 @@ const router = createBrowserRouter([
                         element: <StudyPage />
                     },
                     {
-                        path: "study/:sutdyId/ranking",
+                        path: "study/:studyId/ranking",
                         element: <StudyRankingPage />
                     },
                     {
-                        path: "study/:sutdyId/members",
+                        path: "study/:studyId/members",
                         element: <StudyMemberPage />
                     },
                     {
-                        path: "study/:sutdyId/board",
+                        path: "study/:studyId/board",
                         element: <StudyBoardPage />
                     },
                     {
-                        path: "study/:sutdyId/board/add",
+                        path: "study/:studyId/board/add",
                         element: <StudyBoardFormPage />
                     }
                 ]

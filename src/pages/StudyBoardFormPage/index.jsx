@@ -1,23 +1,42 @@
 import { useForm } from "react-hook-form";
 import { TiChevronLeft } from "react-icons/ti";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./StudyBoardFormPage.module.css";
 
 function StudyBoardFormPage() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const params = useParams();
     const onValid = (data) => {
-        console.log(data);
-        console.log(errors);
+        //console.log(data);
+        //console.log(errors);
+        fetch(`http://localhost:8080/posting/write/${params.studyId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "title": data.title,
+                    "content": data.content,
+                }),
+            }).then(res => {
+                if(res.ok){
+                    alert("게시글 등록이 완료되었습니다.");
+                    navigate(-1);
+                }
+            }).catch(error => {
+                console.log(error);
+                alert(error);
+            });
     }
     const onCancel = () => {
-        navigate(`${process.env.PUBLIC_URL}/community/study/1/board`);
+        navigate(-1);
     }
 
     return <>
         <div className={styles.container}>
             <div className={styles.banner__wrapper}>
-                <Link to={`${process.env.PUBLIC_URL}/community/study/1/board`}><button className={styles.banner__btn}><TiChevronLeft /> 전체 게시판 목록으로</button></Link>
+                <Link to={-1}><button className={styles.banner__btn}><TiChevronLeft /> 전체 게시판 목록으로</button></Link>
                 <p className={styles.banner__title}>스터디 게시물 작성</p>
             </div>
             <div className={styles.form__wrapper}>
