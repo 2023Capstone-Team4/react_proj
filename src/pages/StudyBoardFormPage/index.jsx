@@ -12,6 +12,7 @@ function StudyBoardFormPage() {
         //console.log(errors);
         fetch(`http://localhost:8080/posting/write/${params.studyId}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
