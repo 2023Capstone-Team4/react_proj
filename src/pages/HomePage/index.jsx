@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./HomePage.module.css";
 
 function HomePage() {
     const [recruits, setRecruits] = useState([]);
     const [boards, setBoards] = useState([]);
-
+    const navigate = useNavigate();
+    
     const getRecruitment = async () => {
         const response = await fetch(`http://localhost:8080/study/recruitment`, {
             method: 'GET',
@@ -41,6 +42,23 @@ function HomePage() {
         });
         if (!response.ok) throw new Error('bad server condition');
         return response.json();
+    }
+
+    const onStudyJoin = async(studyId) => {
+        if (window.confirm("스터디에 가입하시겠습니까?")) {
+            const response = await fetch(`http://localhost:8080/study/join/${studyId}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }
+            });
+            if (!response.ok) throw new Error('bad server condition');
+            navigate(`${process.env.PUBLIC_URL}/community/study/${studyId}`);
+        } else {
+            //onCancel();
+        }
     }
 
     return <>
@@ -122,7 +140,8 @@ function HomePage() {
                     {recruits.map((recruit) =>
                         <div
                             key={recruit.id} 
-                            className={styles.item_style1}>
+                            className={styles.item_style1}
+                            onClick={()=>onStudyJoin(recruit.id)}>
                             <p className={styles.item_title}>{recruit.studyName}</p>
                             {/* <p>스터디 모집글</p>
                             <p>대학생 대상</p>
