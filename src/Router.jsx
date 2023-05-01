@@ -11,6 +11,7 @@ import StudyRankingPage from "./pages/StudyRankingPage";
 import StudyMemberPage from "./pages/StudyMemeberPage";
 import StudyBoardPage from "./pages/StudyBoardPage";
 import StudyBoardFormPage from "./pages/StudyBoardFormPage";
+import StudyBoardModifyFormPage from "./pages/StudyBoardModifyFormPage";
 //=======
 import HomePage from "./pages/HomePage";
 import MyStudyPage from "./pages/MyStudyPage";
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
                     {
                         path: "study/:studyId/board/add",
                         element: <StudyBoardFormPage />
+                    },
+                    {
+                        path: "study/:studyId/board/:postId",
+                        element: <StudyBoardModifyFormPage />
                     }
                 ]
             },

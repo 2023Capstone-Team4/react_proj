@@ -1,0 +1,199 @@
+.container{
+    background-color: #F5F5F5;
+
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.banner__wrapper{
+    padding: 32px 48px;
+    width: 100%;
+}
+
+.banner__title{
+    font-size: 2rem;
+    font-weight: 600;
+
+    margin-top: 24px;
+}
+
+.banner__btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4px 0px;
+    background-color: inherit;
+    border: 0px;
+
+    color: #959595;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.form__wrapper{
+    padding: 32px 48px;
+    padding-top: 16px;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__wrapper form{
+    background-color: #F5F5F5;
+    padding: 32px;
+    border-radius: 20px;
+    border: 2px solid #CFDAC8;
+
+    width: 80%;
+    max-width: 600px;
+}
+
+.input__title{
+    display: block;
+    font-size: 1rem;
+    margin: 8px 0px;
+}
+
+.input{
+    padding: 16px;
+    border-radius: 10px;
+    border: 0px;
+    width: 100%;
+}
+
+.input:focus{
+    border: 0px;
+    outline: 0px;
+}
+
+.select{
+    padding: 8px 16px;
+    margin-bottom: 8px 0px;
+    border-radius: 10px;
+}
+
+.textarea{
+    resize: none;
+    border-radius: 10px;
+    border: 0px;
+    outline: 0px;
+    width: 100%;
+    height: 200px;
+
+    padding: 16px;
+}
+
+.button__back{
+    display: block;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    opacity: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__submit{
+    display: block;
+    background-color: #7C9473;
+    color: #F8F9FA;
+    padding: 12px 24px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 0px;
+
+    width: 100%;
+    
+    position: relative;
+    
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.button__cancel{
+    display: block;
+    background-color: #A5A5A5;
+    color: #F8F9FA;
+    padding: 12px 24px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 0px;
+
+    width: 100%;
+
+    position: relative;
+    
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.button__delete{
+    display: block;
+    background-color: #C90A1A;
+    color: #F8F9FA;
+    padding: 12px 24px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 0px;
+
+    width: 100%;
+    min-width: 120px;
+
+    position: relative;
+    
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.error_message{
+    font-size: 0.8rem;
+    height: 16px;
+    margin-top: 2px;
+
+    color: #C90A1A;
+}
+
+@media screen and (max-width: 767px){
+    /*Mobile*/
+    .wrapper{
+        padding: 16px 48px;
+        padding-top: 0px;
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (min-width: 1024px){
+    /*hover*/
+    .button__submit:hover .button__back{
+        opacity: 1;
+    }
+
+    .button__cancel:hover .button__back{
+        opacity: 1;
+    }
+}

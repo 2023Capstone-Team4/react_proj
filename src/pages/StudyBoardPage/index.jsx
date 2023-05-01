@@ -46,7 +46,11 @@ function StudyBoard() {
                 {posts.map((post) =>
                     <div
                         key={post.id}
-                        className={styles.board__item}>{post.title}</div>
+                        className={styles.board__item}>
+                        <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/board/${post.id}`}>
+                            {post.title}
+                        </Link>
+                    </div>
                 )}
             </div>
         </div>
