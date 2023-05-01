@@ -108,7 +108,7 @@ function MyPage() {
     return (
         <div className={styles.container}>
             <div className={styles.join__wrapper}>
-                <h1 className={styles.join__title}>회원가입</h1>
+                <h1 className={styles.join__title}>마이페이지</h1>
                 <form onSubmit={handleSubmit(onValid)}>
                     <label className={styles.input__title}>
                         아이디
