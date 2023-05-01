@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 function CommunityPage(){
     const [recruits, setRecruits] = useState([]);
     const [studyLists, setStudyLists] = useState([]);
+    const [boards, setBoards] = useState([]);
     const navigate = useNavigate();
 
     const getStudyList = async() => {
@@ -22,6 +23,19 @@ function CommunityPage(){
 
     const getRecruitment = async() => {
         const response = await fetch(`http://localhost:8080/study/recruitment`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        return response.json();
+    }
+
+    const getBoards = async() => {
+        const response = await fetch(`http://localhost:8080/posting/show`, {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -58,10 +72,14 @@ function CommunityPage(){
         getRecruitment().then((res)=>{
             // console.log(res);
             setRecruits(res.content);
+        });
+        getBoards().then((res)=>{
+            // console.log(res);
+            setBoards(res.content);
         })
     },[]);
 
-    return recruits && studyLists && <>
+    return recruits && studyLists && boards && <>
         <div className={styles.container}>
             <div className={styles.container_title}>
                 커뮤니티
@@ -124,11 +142,16 @@ function CommunityPage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 게시글 목록</p>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 소식</p>
-                        <p>스터디 이벤트 개최</p>
-                    </div>
+                    {boards.map((board)=>
+                        <div
+                            key={board.id} 
+                            className={styles.item_style1}>
+                            <p className={styles.item_title}>{board.title}</p>
+                            {/* <p>스터디 소식</p>
+                            <p>스터디 이벤트 개최</p> */}
+                            <p>{board.content}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
