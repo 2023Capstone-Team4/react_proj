@@ -1,7 +1,48 @@
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styles from "./HomePage.module.css";
-import {Link} from "react-router-dom";
 
-function HomePage(){
+function HomePage() {
+    const [recruits, setRecruits] = useState([]);
+    const [boards, setBoards] = useState([]);
+
+    const getRecruitment = async () => {
+        const response = await fetch(`http://localhost:8080/study/recruitment`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        return response.json();
+    }
+
+    useEffect(() => {
+        getRecruitment().then((res) => {
+            // console.log(res);
+            setRecruits(res.content);
+        });
+        getBoards().then((res) => {
+            // console.log(res);
+            setBoards(res.content);
+        })
+    }, []);
+
+    const getBoards = async () => {
+        const response = await fetch(`http://localhost:8080/posting/show`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }
+        });
+        if (!response.ok) throw new Error('bad server condition');
+        return response.json();
+    }
+
     return <>
         <div className={styles.container}>
             <div className={styles.container_title}>
@@ -57,26 +98,15 @@ function HomePage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}> 최근 소식</p>
-                    <div className={styles.item_style2}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 소식</p>
-                        <p>스터디 이벤트 개최</p>
-                    </div>
-                    <div className={styles.item_style2}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 소식</p>
-                        <p>스터디 이벤트 개최</p>
-                    </div>
-                    <div className={styles.item_style2}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 소식</p>
-                        <p>스터디 이벤트 개최</p>
-                    </div>
-                    <div className={styles.item_style2}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 소식</p>
-                        <p>스터디 이벤트 개최</p>
-                    </div>
+                    {boards.map((board) =>
+                        <div
+                            key={board.id}
+                            className={styles.item_style2}>
+                            <p className={styles.item_title}>{board.title}</p>
+                            {/* <p>스터디 소식</p>
+                            <p>스터디 이벤트 개최</p> */}
+                            <p>{board.content}</p>
+                        </div>)}
                 </div>
             </div>
 
@@ -89,36 +119,17 @@ function HomePage(){
                 </div>
                 <div className={styles.items}>
                     <p className={styles.item_subTitle}>최근 스터디 모집글</p>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 모집글</p>
-                        <p>대학생 대상</p>
-                        <p>기간: 5월-10월</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 모집글</p>
-                        <p>대학생 대상</p>
-                        <p>기간: 5월-10월</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 모집글</p>
-                        <p>대학생 대상</p>
-                        <p>기간: 5월-10월</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 모집글</p>
-                        <p>대학생 대상</p>
-                        <p>기간: 5월-10월</p>
-                    </div>
-                    <div className={styles.item_style1}>
-                        <p className={styles.item_title}>제목</p>
-                        <p>스터디 모집글</p>
-                        <p>대학생 대상</p>
-                        <p>기간: 5월-10월</p>
-                    </div>
+                    {recruits.map((recruit) =>
+                        <div
+                            key={recruit.id} 
+                            className={styles.item_style1}>
+                            <p className={styles.item_title}>{recruit.studyName}</p>
+                            {/* <p>스터디 모집글</p>
+                            <p>대학생 대상</p>
+                            <p>기간: 5월-10월</p> */}
+                            <p>{recruit.introduce}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
