@@ -11,6 +11,7 @@ function HomePage() {
         const response = await fetch(`http://localhost:8080/study/recruitment`, {
             method: 'GET',
             credentials: 'include',
+            cors: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',

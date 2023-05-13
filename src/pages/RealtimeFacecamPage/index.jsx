@@ -1,9 +1,9 @@
+import React, { useEffect, useState, useRef, Component } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { OpenVidu } from 'openvidu-browser';
+import axios from 'axios';
 import styles from "./RealtimeFacecam.module.css"
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
 import Modal from 'react-modal';
-import { Link, useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
 
 function OpenModalButton({ onClick }) {
     return (
@@ -13,7 +13,7 @@ function OpenModalButton({ onClick }) {
     );
 }
 
-function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
+function ModalContent({ isOpen, onRequestClose, handleMute, handleShow }) {
     const [cam_checked, cam_setChecked] = useState(false);
     const [audio_checked, audio_setChecked] = useState(false);
     const [sleep_checked, sleep_setChecked] = useState(false);
@@ -46,7 +46,7 @@ function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
                     <div className={styles.modal_opt_title}>화면설정</div>
                     <div className={styles.modal_opt_switch}>
                         <label className={styles.switch}>
-                            <input type="checkbox" checked={cam_checked} onChange={cam_toggleSwitch}/>
+                            <input type="checkbox" checked={cam_checked} onChange={cam_toggleSwitch} />
                             <span className={styles.slider}></span>
                         </label>
                     </div>
@@ -55,7 +55,7 @@ function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
                     <div className={styles.modal_opt_title}>음소거</div>
                     <div className={styles.modal_opt_switch}>
                         <label className={styles.switch}>
-                            <input type="checkbox" checked={audio_checked} onChange={audio_toggleSwitch}/>
+                            <input type="checkbox" checked={audio_checked} onChange={audio_toggleSwitch} />
                             <span className={styles.slider}></span>
                         </label>
                     </div>
@@ -64,7 +64,7 @@ function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
                     <div className={styles.modal_opt_title}>졸음알림</div>
                     <div className={styles.modal_opt_switch}>
                         <label className={styles.switch}>
-                            <input type="checkbox" checked={sleep_checked} onChange={sleep_toggleSwitch}/>
+                            <input type="checkbox" checked={sleep_checked} onChange={sleep_toggleSwitch} />
                             <span className={styles.slider}></span>
                         </label>
                     </div>
@@ -83,6 +83,7 @@ function ModalContent({isOpen, onRequestClose, handleMute, handleShow}){
         </Modal>
     );
 }
+
 function RealtimeFacecamPage() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const openModal = () => {
@@ -93,182 +94,202 @@ function RealtimeFacecamPage() {
     }
 
     // 실시간 화상 회의 ///////////////////////////////////////////
-    //////////////////////////////////////////////////////////////
-    const sockJS = new SockJS("http://localhost:8080/webSocket");
-    const stompClient = Stomp.over(sockJS);
-    stompClient.debug = () => { };
-    //////////////////////////////////////////////////////////////
+    const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
+    //const APPLICATION_SERVER_URL = 'http://localhost:5000/';
+    let OV;
+    const { roomId } = useParams();
+    const [mySessionId, setMySessionId] = useState("Room" + roomId);
+    const [myUserName, setMyUserName] = useState('Participant' + Math.floor(Math.random() * 100));
+    const [session, setSession] = useState();
+    const [publisher, setPublisher] = useState();
+    const [subscribers, setSubscribers] = useState([]);
     const [mute, setMute] = useState(true);
     const [show, setShow] = useState(true);
-
-    const [streams, setStreams] = useState([]);
-
-    const room = 1;
-    const { userId } = useParams();
-    const userName = userId;
-
-    const [myStream, setMyStream] = useState();
-    let myPeerConnections;
+    const navigate = useNavigate();
 
     useEffect(() => {
-        let _myStream;
-        myPeerConnections = new Map();
-
-        const getMedia = async () => {
-            _myStream = await navigator.mediaDevices.getUserMedia(
-                {
-                    audio: true,
-                    video: true,
-                }
-            );
-
-            setMyStream(_myStream);
-
-            return _myStream
-        }
-
-        const init = async () => {
-            await getMedia().then(res=>{
-                makeConnection(userName,res);
-            })
-            await stompClient.send(`/welcome/${room.roomName}`, {}, JSON.stringify({ "id": userName[0] }));
-        }
-
-        init();
-
-        // RTC Code
-        function makeConnection(_user, _myStream) {
-            let _myPeerConnections = new RTCPeerConnection();
-            _myPeerConnections.addEventListener("icecandidate", handleIce);
-            _myPeerConnections.addEventListener("track", handleAddStream);
-            _myPeerConnections.addEventListener("connectionstatechange", handleChange);
-            _myStream
-                .getTracks()
-                .forEach((track) => _myPeerConnections.addTrack(track, _myStream));
-
-            myPeerConnections.set(_user, _myPeerConnections);
-        }
-
-        function handleIce(e) {
-            //console.log("sent candidate: ", e.candidate);
-            stompClient.send(`/ice/${room.roomName}`, {}, JSON.stringify({
-                id: userName,
-                ice: e.candidate
-            }));
-        }
-
-        function handleAddStream(data) {
-            //console.log("final: ", data.streams[0], _myStream);
-            //console.log(data);
-            setStreams((prev) => [...prev, data.streams[0]]);
-        }
-
-        function handleChange(myPeerConnection) {
-            if (myPeerConnection.iceConnectionState === "disconnected") {
-                console.log("change_state");
-            }
-        }
-
-        //stompClient
-        stompClient.connect({}, () => {
-            stompClient.subscribe(`/topic/welcome/${room.roomName}`, async (data) => {
-                //console.log("data: ", JSON.parse(data.body));
-                if (JSON.parse(data.body).id === userName) return;
-                console.log("send the offer");
-                makeConnection(JSON.parse(data.body).id, _myStream);
-                const offer = await myPeerConnections.get(JSON.parse(data.body).id).createOffer();
-                myPeerConnections.get(JSON.parse(data.body).id).setLocalDescription(offer);
-                stompClient.send(`/offer/${room.roomName}`, {}, JSON.stringify({
-                    id: userName,
-                    callee: userName,
-                    offer: offer,
-                }));
-            });
-            stompClient.subscribe(`/topic/offer/${room.roomName}`, async (offer) => {
-                //console.log("offer: ", JSON.parse(offer.body));
-                if (JSON.parse(offer.body).id === userName) return;
-                const callee = JSON.parse(offer.body).callee;
-                console.log("received the offer and send the answer");
-                if (!myPeerConnections.has(JSON.parse(offer.body).callee)) {
-                    makeConnection(JSON.parse(offer.body).callee, _myStream);
-                    myPeerConnections.get(JSON.parse(offer.body).callee).setRemoteDescription(JSON.parse(offer.body).offer);
-                    const answer = await myPeerConnections.get(JSON.parse(offer.body).callee).createAnswer();
-                    myPeerConnections.get(JSON.parse(offer.body).callee).setLocalDescription(answer);
-                    stompClient.send(`/answer/${room.roomName}`, {}, JSON.stringify({
-                        id: userName,
-                        callee: callee,
-                        caller: userName,
-                        answer: answer,
-                    }));
-                }
-            });
-            stompClient.subscribe(`/topic/answer/${room.roomName}`, (answer) => {
-                if (JSON.parse(answer.body).id === userName) return;
-                console.log("received the answer");
-                if (JSON.parse(answer.body).callee === userName) {
-                    myPeerConnections.get(JSON.parse(answer.body).caller).setRemoteDescription(JSON.parse(answer.body).answer);
-                }
-            });
-            stompClient.subscribe(`/topic/ice/${room.roomName}`, (ice) => {
-                //console.log("ice: ", JSON.parse(ice.body));
-                if (JSON.parse(ice.body).id === userName) return;
-                console.log("received candidate");
-                myPeerConnections.get(JSON.parse(ice.body).id).addIceCandidate(JSON.parse(ice.body).ice);
-            });
-            stompClient.subscribe(`/topic/exit/${room.roomName}`, (ice) => {
-                //console.log("exit: ", JSON.parse(ice.body));
-
-                if (JSON.parse(ice.body).id === userName) {
-                    const localStream = myPeerConnections.get(JSON.parse(ice.body).id).getLocalStreams()[0];
-                    if (localStream) {
-                        localStream.getTracks().forEach((track) => track.stop());
-                    }
-                }
-                else {
-                    const remoteStream = myPeerConnections.get(JSON.parse(ice.body).id).getRemoteStreams()[0];
-                    if (remoteStream) {
-                        remoteStream.getTracks().forEach((track) => track.stop());
-                    }
-                }
-                myPeerConnections.get(JSON.parse(ice.body).id).close();
-                setStreams((prev) => prev.filter(stream => stream.active));
-            });
-        });
+        window.addEventListener('beforeunload', onbeforeunload);
+        window.removeEventListener('beforeunload', onbeforeunload);
+        joinSession();
     }, []);
 
-
-    //Mute and Show func
-    function handleMute() {
-        setMute(cur => !cur);
-        myStream.getAudioTracks().forEach((track) => {
-            track.enabled = !track.enabled
-        });
-        streams.forEach((stream) => {
-            stream.getAudioTracks().forEach((track) => {
-                track.enabled = !track.enabled
-            })
-        });
+    function onbeforeunload(e) {
+        leaveSession();
     }
 
-    function handleShow() {
-        setShow(cur => !cur);
-        myStream.getVideoTracks().forEach((track) => {
-            track.enabled = !track.enabled
-        })
-        streams.forEach((stream) => {
-            stream.getVideoTracks().forEach((track) => {
-                track.enabled = !track.enabled
-            })
-        });
+    function handleChangeSessionId(e) {
+        setMySessionId(e.target.value);
     }
 
-    function handleExit() {
-        stompClient.send(`/exit/${room.roomName}`, {}, JSON.stringify({
-            id: userName,
-        }));
-        setStreams([]);
+    function handleChangeUserName(e) {
+        setMyUserName(e.target.value);
     }
-    //////////////////////////////////////////////////////////////
+
+    function deleteSubscriber(streamManager) {
+        let subscribers = subscribers;
+        let index = subscribers.indexOf(streamManager, 0);
+        if (index > -1) {
+            subscribers.splice(index, 1);
+            setSubscribers(subscribers);
+        }
+    }
+
+    function joinSession(mute, show) {
+        // --- 1) Get an OpenVidu object ---
+        OV = new OpenVidu();
+
+        // --- 2) Init a session ---
+
+        let mySession = OV.initSession();
+        // On every new Stream received...
+        mySession.on('streamCreated', (event) => {
+            // Subscribe to the Stream to receive it. Second parameter is undefined
+            // so OpenVidu doesn't create an HTML video by its own
+            let subscriber = mySession.subscribe(event.stream, undefined);
+            setSubscribers((cur) => [...cur, subscriber]);
+        });
+
+        // On every Stream destroyed...
+        mySession.on('streamDestroyed', (event) => {
+
+            // Remove the stream from 'subscribers' array
+            this.deleteSubscriber(event.stream.streamManager);
+        });
+
+        // On every asynchronous exception...
+        mySession.on('exception', (exception) => {
+            console.warn(exception);
+        });
+
+        // --- 4) Connect to the session with a valid user token ---
+
+        // Get a token from the OpenVidu deployment
+        getToken().then((token) => {
+            // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
+            // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+            mySession.connect(token, { clientData: myUserName })
+                .then(async () => {
+
+                    // --- 5) Get your own camera stream ---
+
+                    // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
+                    // element: we will manage it on our own) and with the desired properties
+                    let publisher = await OV.initPublisherAsync(undefined, {
+                        audioSource: undefined, // The source of audio. If undefined default microphone
+                        videoSource: undefined, // The source of video. If undefined default webcam
+                        publishAudio: mute, // Whether you want to start publishing with your audio unmuted or not
+                        publishVideo: show, // Whether you want to start publishing with your video enabled or not
+                        resolution: '640x480', // The resolution of your video
+                        frameRate: 30, // The frame rate of your video
+                        insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+                        mirror: false, // Whether to mirror your local video or not
+                    });
+
+                    // --- 6) Publish your stream ---
+
+                    mySession.publish(publisher);
+
+                    // Obtain the current video device in use
+                    let devices = await OV.getDevices();
+                    let videoDevices = devices.filter(device => device.kind === 'videoinput');
+                    let currentVideoDeviceId = publisher.stream.getMediaStream().getVideoTracks()[0].getSettings().deviceId;
+                    let currentVideoDevice = videoDevices.find(device => device.deviceId === currentVideoDeviceId);
+
+                    // Set the main video in the page to display our webcam and store our Publisher
+                    //currentVideoDevice: currentVideoDevice,
+                    setPublisher(publisher);
+                })
+                .catch((error) => {
+                    console.log('There was an error connecting to the session:', error.code, error.message);
+                });
+        });
+
+        setSession(mySession);
+    }
+
+    function leaveSession() {
+
+        // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+
+        const mySession = session;
+
+        if (mySession) {
+            mySession.disconnect();
+        }
+
+        // Empty all properties...
+        OV = null;
+        setSession();
+        setSubscribers([]);
+        setMySessionId();
+        setPublisher();
+    }
+
+
+    async function switchCamera() {
+        try {
+            const devices = await OV.getDevices()
+            let videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+            if (videoDevices && videoDevices.length > 1) {
+
+                let newVideoDevice = videoDevices.filter(device => device.deviceId !== this.state.currentVideoDevice.deviceId)
+
+                if (newVideoDevice.length > 0) {
+                    // Creating a new publisher with specific videoSource
+                    // In mobile devices the default and first camera is the front one
+                    let newPublisher = OV.initPublisher(undefined, {
+                        publishAudio: mute,
+                        publishVideo: show,
+                        mirror: true
+                    });
+
+                    await session.publish(newPublisher)
+                    //currentVideoDevice: newVideoDevice[0],
+                    setPublisher(newPublisher);
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function getToken() {
+        const sessionId = await createSession(mySessionId);
+        return await createToken(sessionId);
+    }
+
+    async function createSession(sessionId) {
+        const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions', { customSessionId: sessionId }, {
+            headers: { 'Content-Type': 'application/json', },
+        });
+        return response.data; // The sessionId
+    }
+
+    async function createToken(sessionId) {
+        const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections', {}, {
+            headers: { 'Content-Type': 'application/json', },
+        });
+        return response.data; // The token
+    }
+
+    const handleExit = () => {
+        leaveSession();
+        navigate(`${process.env.PUBLIC_URL}/mystudy`);
+    }
+
+    const handleMute = async () => {
+        leaveSession();
+        joinSession(!mute, show);
+        setMute((cur) => !cur);
+    }
+
+    const handleShow = async () => {
+        leaveSession();
+        joinSession(mute, !show);
+        setShow((cur) => !cur);
+    }
+
 
     return <>
         <div className={styles.container}>
@@ -280,13 +301,18 @@ function RealtimeFacecamPage() {
                 <div className={styles.item_camera}></div>
                 <div className={styles.item_camera}></div>
                 <div className={styles.item_camera}></div> */}
-                <VideoPlayer stream={myStream} />
-                {[...new Set(streams)].map((stream, index) => <>
-                    <VideoPlayer
-                        key={stream.id}
-                        stream={stream} />
-                </>
+                {publisher && (
+                    <div className="stream-container col-md-6 col-xs-6">
+                        <UserVideoComponent
+                            streamManager={publisher} />
+                    </div>
                 )}
+                {subscribers.map((sub, i) => (
+                    <div key={sub.id} className="stream-container col-md-6 col-xs-6">
+                        <span>{sub.id}</span>
+                        <UserVideoComponent streamManager={sub} />
+                    </div>
+                ))}
             </div>
             <div className={styles.bottom_layer}>
                 <button className={styles.finish_button} onClick={handleExit}>
@@ -294,7 +320,7 @@ function RealtimeFacecamPage() {
                 </button>
                 <div className={styles.setting_button}>
                     <OpenModalButton onClick={openModal} />
-                    <ModalContent 
+                    <ModalContent
                         handleMute={handleMute}
                         handleShow={handleShow}
                         isOpen={modalIsOpen} onRequestClose={closeModal} />
@@ -305,24 +331,56 @@ function RealtimeFacecamPage() {
     </>;
 }
 
-function VideoPlayer({ stream }) {
-    const videoRef = useRef(null);
+class OpenViduVideoComponent extends Component {
 
-    useEffect(() => {
-        if (stream && videoRef.current) {
-            videoRef.current.srcObject = stream;
+    constructor(props) {
+        super(props);
+        this.videoRef = React.createRef();
+    }
+
+    componentDidUpdate(props) {
+        if (props && !!this.videoRef) {
+            this.props.streamManager.addVideoElement(this.videoRef.current);
         }
-    }, [stream]);
+    }
 
-    return (
-        <div className={styles.item_camera_wrapper}>
-            <video
-                className={styles.item_camera}
-                ref={videoRef}
-                autoPlay
-                playsInline />
-        </div>
-    );
+    componentDidMount() {
+        if (this.props && !!this.videoRef) {
+            this.props.streamManager.addVideoElement(this.videoRef.current);
+        }
+    }
+
+    render() {
+        return (
+            <div className={styles.item_camera_wrapper}>
+                <video
+                    className={styles.item_camera}
+                    autoPlay={true} ref={this.videoRef} />
+            </div>
+        );
+    }
+
+}
+
+class UserVideoComponent extends Component {
+
+    getNicknameTag() {
+        // Gets the nickName of the user
+        return JSON.parse(this.props.streamManager.stream.connection.data).clientData;
+    }
+
+    render() {
+        return (
+            <div>
+                {this.props.streamManager !== undefined ? (
+                    <div className="streamcomponent">
+                        <OpenViduVideoComponent streamManager={this.props.streamManager} />
+                        <div><p>{this.getNicknameTag()}</p></div>
+                    </div>
+                ) : null}
+            </div>
+        );
+    }
 }
 
 export default RealtimeFacecamPage;

@@ -37,7 +37,7 @@ function MyStudyPage(){
                         <p>0시간 12분</p>
                         <div>
                             <button className={styles.item_button}>
-                                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam/group`}>학습 시작</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam/group/0`}>학습 시작</Link>
                             </button>
                         </div>
                     </div>

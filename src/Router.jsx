@@ -47,7 +47,11 @@ const router = createBrowserRouter([
 //=======
             },
             {
-                path: "realtimeFacecam/:userId",
+                path: "realtimeFacecam/personal",
+                element:<RealtimeFacecamPage/>
+            },
+            {
+                path: "realtimeFacecam/group/:roomId",
                 element:<RealtimeFacecamPage/>
             },
             {
