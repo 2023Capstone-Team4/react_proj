@@ -126,11 +126,10 @@ function RealtimeFacecamPage() {
     }
 
     function deleteSubscriber(streamManager) {
-        let subscribers = subscribers;
-        let index = subscribers.indexOf(streamManager, 0);
-        if (index > -1) {
-            subscribers.splice(index, 1);
-            setSubscribers(subscribers);
+        if (subscribers.length > 0) {
+            let subs = subscribers;
+            subs = subs.filter(sub => sub.stream.connection.connectionId !== streamManager.stream.connection.connectionId);
+            setSubscribers(subs);
         }
     }
 
@@ -146,14 +145,16 @@ function RealtimeFacecamPage() {
             // Subscribe to the Stream to receive it. Second parameter is undefined
             // so OpenVidu doesn't create an HTML video by its own
             let subscriber = mySession.subscribe(event.stream, undefined);
-            setSubscribers((cur) => [...cur, subscriber]);
+            let subs = subscribers;
+            subs.push(subscriber);
+            setSubscribers(subs);
+            console.log(subscribers);
         });
 
         // On every Stream destroyed...
         mySession.on('streamDestroyed', (event) => {
-
             // Remove the stream from 'subscribers' array
-            this.deleteSubscriber(event.stream.streamManager);
+            deleteSubscriber(event.stream.streamManager);
         });
 
         // On every asynchronous exception...
@@ -260,7 +261,7 @@ function RealtimeFacecamPage() {
     }
 
     async function createSession(sessionId) {
-        const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions', { customSessionId: sessionId }, {
+        const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions', { "customSessionId": sessionId }, {
             headers: { 'Content-Type': 'application/json', },
         });
         return response.data; // The sessionId
@@ -275,6 +276,7 @@ function RealtimeFacecamPage() {
 
     const handleExit = () => {
         leaveSession();
+        //navigate(-1);
         navigate(`${process.env.PUBLIC_URL}/mystudy`);
     }
 
@@ -290,7 +292,6 @@ function RealtimeFacecamPage() {
         setShow((cur) => !cur);
     }
 
-
     return <>
         <div className={styles.container}>
             <div className={styles.container_title}>
@@ -302,16 +303,13 @@ function RealtimeFacecamPage() {
                 <div className={styles.item_camera}></div>
                 <div className={styles.item_camera}></div> */}
                 {publisher && (
-                    <div className="stream-container col-md-6 col-xs-6">
-                        <UserVideoComponent
-                            streamManager={publisher} />
-                    </div>
+                    <UserVideoComponent
+                        streamManager={publisher} />
                 )}
-                {subscribers.map((sub, i) => (
-                    <div key={sub.id} className="stream-container col-md-6 col-xs-6">
-                        <span>{sub.id}</span>
-                        <UserVideoComponent streamManager={sub} />
-                    </div>
+                {subscribers.filter(subscriber => subscriber.stream.connection.disposed !== true).map((sub, i) => (
+                    <UserVideoComponent 
+                        key={sub.stream.streamId}
+                        streamManager={sub} />
                 ))}
             </div>
             <div className={styles.bottom_layer}>
