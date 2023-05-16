@@ -94,8 +94,8 @@ function RealtimeFacecamPage() {
     }
 
     // 실시간 화상 회의 ///////////////////////////////////////////
-    const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
-    //const APPLICATION_SERVER_URL = 'http://localhost:5000/';
+    //const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
+    const APPLICATION_SERVER_URL = 'http://localhost:5000/';
     let OV;
     const { roomId } = useParams();
     const [mySessionId, setMySessionId] = useState("Room" + roomId);
