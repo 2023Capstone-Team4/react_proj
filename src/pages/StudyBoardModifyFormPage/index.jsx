@@ -1,13 +1,23 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TiChevronLeft } from "react-icons/ti";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import styles from "./StudyBoardModifyFormPage.module.css";
 
 function StudyBoardModifyFormPage() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const navigate = useNavigate();
     const params = useParams();
+    //initialization////////////////////////
+    const location = useLocation();
+	const post = location.state.post;
+    useEffect(() => {
+        if(post){
+            setValue("title", post.title);
+            setValue("content", post.content);
+        }
+    }, [post]);
+    /////////////////////////////////////////
     const onValid = (data) => {
         //console.log(data);
         //console.log(errors);
@@ -55,30 +65,6 @@ function StudyBoardModifyFormPage() {
     const onCancel = () => {
         navigate(-1);
     }
-    useEffect(() => {
-        const getPost = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/posting/`, {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
-                    }
-                });
-                if (!response.ok) throw new Error('bad server condition');
-                return response.json();
-            } catch (e) {
-                console.error('getPost Error: ', e.message);
-                return "false";
-            }
-        }
-        // getPost().then((res) => {
-        //     //console.log(res);
-        //     setValue("title", res.title);
-        //     setValue("content", res.content);
-        // });
-    }, []);
 
     return <>
         <div className={styles.container}>

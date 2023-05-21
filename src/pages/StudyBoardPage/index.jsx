@@ -38,6 +38,8 @@ function StudyBoard() {
         });
     }, []);
 
+    console.log(posts);
+
     return posts && <>
         <div className={styles.container}>
             <div className={styles.banner__wrapper}>
@@ -57,7 +59,7 @@ function StudyBoard() {
             <div className={styles.board__wrapper}>
                 {posts.map((post) =>
                     <div key={post.id}>
-                        <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/board/${post.id}`}>
+                        <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/board/${post.id}`} state={{post: post}}>
                             <div
                                 className={styles.board__item}>
                                 {post.title}
