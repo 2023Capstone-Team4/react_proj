@@ -303,11 +303,11 @@ function RealtimeFacecamPage() {
                 <div className={styles.item_camera}></div>
                 <div className={styles.item_camera}></div> */}
                 {publisher && (
-                    <UserVideoComponent
+                    <MyUserVideoComponent
                         streamManager={publisher} />
                 )}
                 {subscribers.filter(subscriber => subscriber.stream.connection.disposed !== true).map((sub, i) => (
-                    <UserVideoComponent 
+                    <UserVideoComponent
                         key={sub.stream.streamId}
                         streamManager={sub} />
                 ))}
@@ -329,56 +329,112 @@ function RealtimeFacecamPage() {
     </>;
 }
 
-class OpenViduVideoComponent extends Component {
-
-    constructor(props) {
-        super(props);
-        this.videoRef = React.createRef();
-    }
-
-    componentDidUpdate(props) {
-        if (props && !!this.videoRef) {
-            this.props.streamManager.addVideoElement(this.videoRef.current);
+const MyUserVideoComponent = (props) => {
+    const videoRef = useRef(null);
+    useEffect(() => {
+        if (props && !!videoRef.current) {
+            props.streamManager.addVideoElement(videoRef.current);
         }
-    }
+    }, [props]);
 
-    componentDidMount() {
-        if (this.props && !!this.videoRef) {
-            this.props.streamManager.addVideoElement(this.videoRef.current);
-        }
-    }
 
-    render() {
-        return (
-            <div className={styles.item_camera_wrapper}>
-                <video
-                    className={styles.item_camera}
-                    autoPlay={true} ref={this.videoRef} />
-            </div>
-        );
-    }
-
-}
-
-class UserVideoComponent extends Component {
-
-    getNicknameTag() {
+    const getNicknameTag = () => {
         // Gets the nickName of the user
-        return JSON.parse(this.props.streamManager.stream.connection.data).clientData;
-    }
+        return JSON.parse(props.streamManager.stream.connection.data).clientData;
+    };
 
-    render() {
-        return (
-            <div>
-                {this.props.streamManager !== undefined ? (
-                    <div className="streamcomponent">
-                        <OpenViduVideoComponent streamManager={this.props.streamManager} />
-                        <div><p>{this.getNicknameTag()}</p></div>
+
+    // useEffect(() => {
+    //     console.log("setInterval initiation");
+    //     let cnt = 0;
+    //     const postImg = async (data) => {
+    //         const formData = new FormData();
+    //         formData.append('file', data);
+    //         console.log("post");
+    //         try {
+    //             const response = await fetch('http://127.0.0.1:5001/', {
+    //                 method: 'POST',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify({
+    //                     "data": data.replace("data:image/png;base64,", "")
+    //                 }),
+    //             });
+    //             if (!response.ok) throw new Error('bad server condition');
+    //             return response.json();
+    //         } catch (e) {
+    //             console.error('postImg Error: ', e.message);
+    //             return false;
+    //         }
+    //     };
+
+    //     const extractFrames = () => {
+    //         if (videoRef.current) {
+    //             const canvas = document.createElement('canvas');
+    //             canvas.width = 400
+    //             canvas.height = 300;
+    //             const ctx = canvas.getContext('2d');
+    //             ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    //             postImg(canvas.toDataURL("image/png")).then((res) => {
+    //                 console.log(res['class_name']);
+    //                 if(res['class_name']==="bad"){
+    //                     cnt+=1
+    //                     if(cnt%3===0){
+    //                         alert("자세를 바르게 하세요.");
+    //                     }
+    //                 }
+    //                 //setResult(res['class_name']);
+    //             });
+    //         }
+    //     };
+
+    //     setInterval(extractFrames, 10000);
+        
+    // }, []);
+
+    return (
+        <div>
+            {props.streamManager !== undefined ? (
+                <div className="streamcomponent">
+                    <div className={styles.item_camera_wrapper}>
+                        <video className={styles.item_camera} autoPlay ref={videoRef} />
                     </div>
-                ) : null}
-            </div>
-        );
-    }
-}
+                    <div>
+                        <p>{getNicknameTag()}</p>
+                    </div>
+                </div>
+            ) : null}
+        </div>
+    );
+};
+
+const UserVideoComponent = (props) => {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (props && !!videoRef.current) {
+            props.streamManager.addVideoElement(videoRef.current);
+        }
+    }, [props]);
+
+    const getNicknameTag = () => {
+        // Gets the nickName of the user
+        return JSON.parse(props.streamManager.stream.connection.data).clientData;
+    };
+
+    return (
+        <div>
+            {props.streamManager !== undefined ? (
+                <div className="streamcomponent">
+                    <div className={styles.item_camera_wrapper}>
+                        <video className={styles.item_camera} autoPlay ref={videoRef} />
+                    </div>
+                    <div>
+                        <p>{getNicknameTag()}</p>
+                    </div>
+                </div>
+            ) : null}
+        </div>
+    );
+};
 
 export default RealtimeFacecamPage;

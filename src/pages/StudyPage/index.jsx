@@ -66,7 +66,7 @@ function StudyPage() {
     return study && members && posts ? <>
         <div className={styles.container}>
             <div className={styles.banner__wrapper}>
-                <Link to={-1}>
+                <Link to={`${process.env.PUBLIC_URL}/community`}>
                     <button className={styles.banner__btn__back}><TiChevronLeft /> 전체 스터디 목록으로</button>
                 </Link>
                 <div className={styles.banner__title}>
@@ -84,19 +84,31 @@ function StudyPage() {
                         </div> : null}
                     </div>
                 </div>
-                <button className={styles.banner__btn}>
-                    <div className={styles.btn__back} />
-                    <div className="btn__text">학습 시작 <TiArrowRightThick /></div>
-                </button>
+                <Link to={`${process.env.PUBLIC_URL}/realtimeFacecam/group/${study.id}`}>
+                    <button className={styles.banner__btn}>
+                        <div className={styles.btn__back} />
+                        <div className="btn__text">학습 시작 <TiArrowRightThick /></div>
+                    </button>
+                </Link>
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.items__wrapper}>
                     <div className={styles.items__wrapper__row}>
                         <div className={styles.item}>
-                            <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/calender`}>
+                            {/* <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/calender`}>
                                 <span className={styles.item__title}>스터디 일정 <IoIosArrowForward /></span>
                             </Link>
-                            <Calender />
+                            <Calender /> */}
+                            <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/board`}>
+                                <span className={styles.item__title}>스터디 게시판 <IoIosArrowForward /></span>
+                            </Link>
+                            <div className={styles.board__wrapper}>
+                                {posts.map((post) =>
+                                    <div
+                                        key={post.id}
+                                        className={styles.board__item}>{post.title}</div>
+                                )}
+                            </div>
                         </div>
                         <div className={styles.items__wrapper__col}>
                             <div className={styles.item}>
@@ -124,7 +136,7 @@ function StudyPage() {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.item}>
+                    {/* <div className={styles.item}>
                         <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/board`}>
                             <span className={styles.item__title}>스터디 게시판 <IoIosArrowForward /></span>
                         </Link>
@@ -135,7 +147,7 @@ function StudyPage() {
                                     className={styles.board__item}>{post.title}</div>
                             )}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
