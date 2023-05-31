@@ -111,7 +111,7 @@ function StudyPage() {
                             </div>
                         </div>
                         <div className={styles.items__wrapper__col}>
-                            <div className={styles.item}>
+                            {/* <div className={styles.item}>
                                 <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/ranking`}>
                                     <span className={styles.item__title}>스터디 랭킹 <IoIosArrowForward /></span>
                                 </Link>
@@ -121,7 +121,7 @@ function StudyPage() {
                                     <div className={styles.ranking__item}>조서영</div>
                                     <div className={styles.ranking__item}>조서영</div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className={styles.item}>
                                 <Link to={`${process.env.PUBLIC_URL}/community/study/${params.studyId}/members`}>
                                     <span className={styles.item__title}>스터디 멤버 <IoIosArrowForward /></span>
