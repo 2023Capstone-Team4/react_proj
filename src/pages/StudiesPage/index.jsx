@@ -168,7 +168,7 @@ function StudiesPage() {
                                         <span className={styles.item__category__text}># {category_BackToFront(study.category)}</span>
                                     </div>
                                     <div className={styles.item__content}>
-                                        <p className={styles.item__content__limit}>제한인원: 현재인원/{study.maxPeople}</p>
+                                        {/* <p className={styles.item__content__limit}>제한인원: 현재인원/{study.maxPeople}</p> */}
                                         <p className={styles.item__content__text}>
                                             {study.introduce.length > 80 ? study.introduce.slice(0, 80) + "..." : study.introduce}
                                         </p>
